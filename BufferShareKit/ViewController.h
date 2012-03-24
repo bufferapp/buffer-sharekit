@@ -8,6 +8,12 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ViewController : UIViewController
+@interface ViewController : UIViewController {
+    IBOutlet UIButton *shareBtn;
+}
+
+@property (strong, nonatomic) IBOutlet UIButton *shareBtn;
+
+-(IBAction)share:(id)sender;
 
 @end

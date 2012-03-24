@@ -16,69 +16,69 @@
 		94E17288151D1CB30033CFF1 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94E17287151D1CB30033CFF1 /* ViewController.m */; };
 		94E1728B151D1CB30033CFF1 /* ViewController_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 94E17289151D1CB30033CFF1 /* ViewController_iPhone.xib */; };
 		94E1728E151D1CB30033CFF1 /* ViewController_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 94E1728C151D1CB30033CFF1 /* ViewController_iPad.xib */; };
-		94E17339151D1D610033CFF1 /* SHKOAuthSharer.m in Sources */ = {isa = PBXBuildFile; fileRef = 94E1729F151D1D610033CFF1 /* SHKOAuthSharer.m */; };
-		94E1733A151D1D610033CFF1 /* SHKSharer.m in Sources */ = {isa = PBXBuildFile; fileRef = 94E172A1151D1D610033CFF1 /* SHKSharer.m */; };
-		94E1733B151D1D610033CFF1 /* UIWebView+SHK.m in Sources */ = {isa = PBXBuildFile; fileRef = 94E172A4151D1D610033CFF1 /* UIWebView+SHK.m */; };
-		94E1733C151D1D610033CFF1 /* SFHFKeychainUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 94E172A8151D1D610033CFF1 /* SFHFKeychainUtils.m */; };
-		94E1733D151D1D610033CFF1 /* NSMutableURLRequest+Parameters.m in Sources */ = {isa = PBXBuildFile; fileRef = 94E172AC151D1D610033CFF1 /* NSMutableURLRequest+Parameters.m */; };
-		94E1733E151D1D610033CFF1 /* NSString+URLEncoding.m in Sources */ = {isa = PBXBuildFile; fileRef = 94E172AE151D1D610033CFF1 /* NSString+URLEncoding.m */; };
-		94E1733F151D1D610033CFF1 /* NSURL+Base.m in Sources */ = {isa = PBXBuildFile; fileRef = 94E172B0151D1D610033CFF1 /* NSURL+Base.m */; };
-		94E17340151D1D610033CFF1 /* Base64Transcoder.c in Sources */ = {isa = PBXBuildFile; fileRef = 94E172B2151D1D610033CFF1 /* Base64Transcoder.c */; };
-		94E17341151D1D610033CFF1 /* hmac.c in Sources */ = {isa = PBXBuildFile; fileRef = 94E172B4151D1D610033CFF1 /* hmac.c */; };
-		94E17342151D1D610033CFF1 /* sha1.c in Sources */ = {isa = PBXBuildFile; fileRef = 94E172B6151D1D610033CFF1 /* sha1.c */; };
-		94E17343151D1D610033CFF1 /* OAAsynchronousDataFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 94E172B9151D1D610033CFF1 /* OAAsynchronousDataFetcher.m */; };
-		94E17344151D1D610033CFF1 /* OAConsumer.m in Sources */ = {isa = PBXBuildFile; fileRef = 94E172BB151D1D610033CFF1 /* OAConsumer.m */; };
-		94E17345151D1D610033CFF1 /* OADataFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 94E172BD151D1D610033CFF1 /* OADataFetcher.m */; };
-		94E17346151D1D610033CFF1 /* OAHMAC_SHA1SignatureProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 94E172BF151D1D610033CFF1 /* OAHMAC_SHA1SignatureProvider.m */; };
-		94E17347151D1D610033CFF1 /* OAMutableURLRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 94E172C1151D1D610033CFF1 /* OAMutableURLRequest.m */; };
-		94E17348151D1D610033CFF1 /* OAPlaintextSignatureProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 94E172C3151D1D610033CFF1 /* OAPlaintextSignatureProvider.m */; };
-		94E17349151D1D610033CFF1 /* OARequestParameter.m in Sources */ = {isa = PBXBuildFile; fileRef = 94E172C5151D1D610033CFF1 /* OARequestParameter.m */; };
-		94E1734A151D1D610033CFF1 /* OAServiceTicket.m in Sources */ = {isa = PBXBuildFile; fileRef = 94E172C7151D1D610033CFF1 /* OAServiceTicket.m */; };
-		94E1734B151D1D610033CFF1 /* OAToken.m in Sources */ = {isa = PBXBuildFile; fileRef = 94E172CA151D1D610033CFF1 /* OAToken.m */; };
-		94E1734C151D1D610033CFF1 /* SHKRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 94E172CD151D1D610033CFF1 /* SHKRequest.m */; };
-		94E1734D151D1D610033CFF1 /* SHK.m in Sources */ = {isa = PBXBuildFile; fileRef = 94E172CF151D1D610033CFF1 /* SHK.m */; };
-		94E1734E151D1D610033CFF1 /* SHKItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 94E172D1151D1D610033CFF1 /* SHKItem.m */; };
-		94E1734F151D1D610033CFF1 /* SHKOfflineSharer.m in Sources */ = {isa = PBXBuildFile; fileRef = 94E172D3151D1D610033CFF1 /* SHKOfflineSharer.m */; };
+		94E17339151D1D610033CFF1 /* SHKOAuthSharer.m in Sources */ = {isa = PBXBuildFile; fileRef = 94E1729F151D1D610033CFF1 /* SHKOAuthSharer.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		94E1733A151D1D610033CFF1 /* SHKSharer.m in Sources */ = {isa = PBXBuildFile; fileRef = 94E172A1151D1D610033CFF1 /* SHKSharer.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		94E1733B151D1D610033CFF1 /* UIWebView+SHK.m in Sources */ = {isa = PBXBuildFile; fileRef = 94E172A4151D1D610033CFF1 /* UIWebView+SHK.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		94E1733C151D1D610033CFF1 /* SFHFKeychainUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 94E172A8151D1D610033CFF1 /* SFHFKeychainUtils.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		94E1733D151D1D610033CFF1 /* NSMutableURLRequest+Parameters.m in Sources */ = {isa = PBXBuildFile; fileRef = 94E172AC151D1D610033CFF1 /* NSMutableURLRequest+Parameters.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		94E1733E151D1D610033CFF1 /* NSString+URLEncoding.m in Sources */ = {isa = PBXBuildFile; fileRef = 94E172AE151D1D610033CFF1 /* NSString+URLEncoding.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		94E1733F151D1D610033CFF1 /* NSURL+Base.m in Sources */ = {isa = PBXBuildFile; fileRef = 94E172B0151D1D610033CFF1 /* NSURL+Base.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		94E17340151D1D610033CFF1 /* Base64Transcoder.c in Sources */ = {isa = PBXBuildFile; fileRef = 94E172B2151D1D610033CFF1 /* Base64Transcoder.c */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		94E17341151D1D610033CFF1 /* hmac.c in Sources */ = {isa = PBXBuildFile; fileRef = 94E172B4151D1D610033CFF1 /* hmac.c */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		94E17342151D1D610033CFF1 /* sha1.c in Sources */ = {isa = PBXBuildFile; fileRef = 94E172B6151D1D610033CFF1 /* sha1.c */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		94E17343151D1D610033CFF1 /* OAAsynchronousDataFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 94E172B9151D1D610033CFF1 /* OAAsynchronousDataFetcher.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		94E17344151D1D610033CFF1 /* OAConsumer.m in Sources */ = {isa = PBXBuildFile; fileRef = 94E172BB151D1D610033CFF1 /* OAConsumer.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		94E17345151D1D610033CFF1 /* OADataFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 94E172BD151D1D610033CFF1 /* OADataFetcher.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		94E17346151D1D610033CFF1 /* OAHMAC_SHA1SignatureProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 94E172BF151D1D610033CFF1 /* OAHMAC_SHA1SignatureProvider.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		94E17347151D1D610033CFF1 /* OAMutableURLRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 94E172C1151D1D610033CFF1 /* OAMutableURLRequest.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		94E17348151D1D610033CFF1 /* OAPlaintextSignatureProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 94E172C3151D1D610033CFF1 /* OAPlaintextSignatureProvider.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		94E17349151D1D610033CFF1 /* OARequestParameter.m in Sources */ = {isa = PBXBuildFile; fileRef = 94E172C5151D1D610033CFF1 /* OARequestParameter.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		94E1734A151D1D610033CFF1 /* OAServiceTicket.m in Sources */ = {isa = PBXBuildFile; fileRef = 94E172C7151D1D610033CFF1 /* OAServiceTicket.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		94E1734B151D1D610033CFF1 /* OAToken.m in Sources */ = {isa = PBXBuildFile; fileRef = 94E172CA151D1D610033CFF1 /* OAToken.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		94E1734C151D1D610033CFF1 /* SHKRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 94E172CD151D1D610033CFF1 /* SHKRequest.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		94E1734D151D1D610033CFF1 /* SHK.m in Sources */ = {isa = PBXBuildFile; fileRef = 94E172CF151D1D610033CFF1 /* SHK.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		94E1734E151D1D610033CFF1 /* SHKItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 94E172D1151D1D610033CFF1 /* SHKItem.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		94E1734F151D1D610033CFF1 /* SHKOfflineSharer.m in Sources */ = {isa = PBXBuildFile; fileRef = 94E172D3151D1D610033CFF1 /* SHKOfflineSharer.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		94E17350151D1D610033CFF1 /* SHKSharers.plist in Resources */ = {isa = PBXBuildFile; fileRef = 94E172D4151D1D610033CFF1 /* SHKSharers.plist */; };
-		94E17351151D1D610033CFF1 /* SHKCustomFormController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94E172D7151D1D610033CFF1 /* SHKCustomFormController.m */; };
-		94E17352151D1D610033CFF1 /* SHKCustomFormFieldCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 94E172D9151D1D610033CFF1 /* SHKCustomFormFieldCell.m */; };
-		94E17353151D1D610033CFF1 /* SHKCustomShareMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 94E172DB151D1D610033CFF1 /* SHKCustomShareMenu.m */; };
-		94E17354151D1D610033CFF1 /* SHKCustomShareMenuCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 94E172DD151D1D610033CFF1 /* SHKCustomShareMenuCell.m */; };
+		94E17351151D1D610033CFF1 /* SHKCustomFormController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94E172D7151D1D610033CFF1 /* SHKCustomFormController.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		94E17352151D1D610033CFF1 /* SHKCustomFormFieldCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 94E172D9151D1D610033CFF1 /* SHKCustomFormFieldCell.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		94E17353151D1D610033CFF1 /* SHKCustomShareMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 94E172DB151D1D610033CFF1 /* SHKCustomShareMenu.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		94E17354151D1D610033CFF1 /* SHKCustomShareMenuCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 94E172DD151D1D610033CFF1 /* SHKCustomShareMenuCell.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		94E17355151D1D610033CFF1 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 94E172DF151D1D610033CFF1 /* Localizable.strings */; };
-		94E17356151D1D610033CFF1 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 94E172E4151D1D610033CFF1 /* Reachability.m */; };
-		94E17357151D1D610033CFF1 /* SHKCopy.m in Sources */ = {isa = PBXBuildFile; fileRef = 94E172E9151D1D610033CFF1 /* SHKCopy.m */; };
-		94E17358151D1D610033CFF1 /* SHKMail.m in Sources */ = {isa = PBXBuildFile; fileRef = 94E172EC151D1D610033CFF1 /* SHKMail.m */; };
-		94E17359151D1D610033CFF1 /* SHKSafari.m in Sources */ = {isa = PBXBuildFile; fileRef = 94E172EF151D1D610033CFF1 /* SHKSafari.m */; };
-		94E1735A151D1D610033CFF1 /* SHKPhotoAlbum.m in Sources */ = {isa = PBXBuildFile; fileRef = 94E172F2151D1D610033CFF1 /* SHKPhotoAlbum.m */; };
-		94E1735B151D1D610033CFF1 /* SHKDelicious.m in Sources */ = {isa = PBXBuildFile; fileRef = 94E172F6151D1D610033CFF1 /* SHKDelicious.m */; };
+		94E17356151D1D610033CFF1 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 94E172E4151D1D610033CFF1 /* Reachability.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		94E17357151D1D610033CFF1 /* SHKCopy.m in Sources */ = {isa = PBXBuildFile; fileRef = 94E172E9151D1D610033CFF1 /* SHKCopy.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		94E17358151D1D610033CFF1 /* SHKMail.m in Sources */ = {isa = PBXBuildFile; fileRef = 94E172EC151D1D610033CFF1 /* SHKMail.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		94E17359151D1D610033CFF1 /* SHKSafari.m in Sources */ = {isa = PBXBuildFile; fileRef = 94E172EF151D1D610033CFF1 /* SHKSafari.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		94E1735A151D1D610033CFF1 /* SHKPhotoAlbum.m in Sources */ = {isa = PBXBuildFile; fileRef = 94E172F2151D1D610033CFF1 /* SHKPhotoAlbum.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		94E1735B151D1D610033CFF1 /* SHKDelicious.m in Sources */ = {isa = PBXBuildFile; fileRef = 94E172F6151D1D610033CFF1 /* SHKDelicious.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		94E1735C151D1D610033CFF1 /* FBConnect.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 94E172F9151D1D610033CFF1 /* FBConnect.bundle */; };
-		94E1735D151D1D610033CFF1 /* FBConnectGlobal.m in Sources */ = {isa = PBXBuildFile; fileRef = 94E172FC151D1D610033CFF1 /* FBConnectGlobal.m */; };
-		94E1735E151D1D610033CFF1 /* FBDialog.m in Sources */ = {isa = PBXBuildFile; fileRef = 94E172FE151D1D610033CFF1 /* FBDialog.m */; };
-		94E1735F151D1D610033CFF1 /* FBFeedDialog.m in Sources */ = {isa = PBXBuildFile; fileRef = 94E17300151D1D610033CFF1 /* FBFeedDialog.m */; };
-		94E17360151D1D610033CFF1 /* FBLoginButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 94E17302151D1D610033CFF1 /* FBLoginButton.m */; };
-		94E17361151D1D610033CFF1 /* FBLoginDialog.m in Sources */ = {isa = PBXBuildFile; fileRef = 94E17304151D1D610033CFF1 /* FBLoginDialog.m */; };
-		94E17362151D1D610033CFF1 /* FBPermissionDialog.m in Sources */ = {isa = PBXBuildFile; fileRef = 94E17306151D1D610033CFF1 /* FBPermissionDialog.m */; };
-		94E17363151D1D610033CFF1 /* FBRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 94E17308151D1D610033CFF1 /* FBRequest.m */; };
-		94E17364151D1D610033CFF1 /* FBSession.m in Sources */ = {isa = PBXBuildFile; fileRef = 94E1730A151D1D610033CFF1 /* FBSession.m */; };
-		94E17365151D1D610033CFF1 /* FBStreamDialog.m in Sources */ = {isa = PBXBuildFile; fileRef = 94E1730C151D1D610033CFF1 /* FBStreamDialog.m */; };
-		94E17366151D1D610033CFF1 /* FBXMLHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 94E1730E151D1D610033CFF1 /* FBXMLHandler.m */; };
-		94E17367151D1D610033CFF1 /* SHKFacebook.m in Sources */ = {isa = PBXBuildFile; fileRef = 94E17310151D1D610033CFF1 /* SHKFacebook.m */; };
-		94E17368151D1D610033CFF1 /* SHKFBStreamDialog.m in Sources */ = {isa = PBXBuildFile; fileRef = 94E17312151D1D610033CFF1 /* SHKFBStreamDialog.m */; };
-		94E17369151D1D610033CFF1 /* SHKGoogleReader.m in Sources */ = {isa = PBXBuildFile; fileRef = 94E17315151D1D610033CFF1 /* SHKGoogleReader.m */; };
-		94E1736A151D1D610033CFF1 /* SHKInstapaper.m in Sources */ = {isa = PBXBuildFile; fileRef = 94E17318151D1D610033CFF1 /* SHKInstapaper.m */; };
-		94E1736B151D1D610033CFF1 /* SHKPinboard.m in Sources */ = {isa = PBXBuildFile; fileRef = 94E1731B151D1D610033CFF1 /* SHKPinboard.m */; };
-		94E1736C151D1D610033CFF1 /* SHKReadItLater.m in Sources */ = {isa = PBXBuildFile; fileRef = 94E1731E151D1D610033CFF1 /* SHKReadItLater.m */; };
-		94E1736D151D1D610033CFF1 /* SHKTumblr.m in Sources */ = {isa = PBXBuildFile; fileRef = 94E17321151D1D610033CFF1 /* SHKTumblr.m */; };
-		94E1736E151D1D610033CFF1 /* SHKTwitter.m in Sources */ = {isa = PBXBuildFile; fileRef = 94E17324151D1D610033CFF1 /* SHKTwitter.m */; };
-		94E1736F151D1D610033CFF1 /* SHKTwitterForm.m in Sources */ = {isa = PBXBuildFile; fileRef = 94E17326151D1D610033CFF1 /* SHKTwitterForm.m */; };
-		94E17370151D1D610033CFF1 /* SHKActionSheet.m in Sources */ = {isa = PBXBuildFile; fileRef = 94E1732A151D1D610033CFF1 /* SHKActionSheet.m */; };
-		94E17371151D1D610033CFF1 /* SHKActivityIndicator.m in Sources */ = {isa = PBXBuildFile; fileRef = 94E1732C151D1D610033CFF1 /* SHKActivityIndicator.m */; };
-		94E17372151D1D610033CFF1 /* SHKFormController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94E1732E151D1D610033CFF1 /* SHKFormController.m */; };
-		94E17373151D1D610033CFF1 /* SHKFormFieldCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 94E17330151D1D610033CFF1 /* SHKFormFieldCell.m */; };
-		94E17374151D1D610033CFF1 /* SHKFormFieldSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = 94E17332151D1D610033CFF1 /* SHKFormFieldSettings.m */; };
-		94E17375151D1D610033CFF1 /* SHKOAuthView.m in Sources */ = {isa = PBXBuildFile; fileRef = 94E17334151D1D610033CFF1 /* SHKOAuthView.m */; };
-		94E17376151D1D610033CFF1 /* SHKShareMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 94E17336151D1D610033CFF1 /* SHKShareMenu.m */; };
-		94E17377151D1D610033CFF1 /* SHKViewControllerWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 94E17338151D1D610033CFF1 /* SHKViewControllerWrapper.m */; };
+		94E1735D151D1D610033CFF1 /* FBConnectGlobal.m in Sources */ = {isa = PBXBuildFile; fileRef = 94E172FC151D1D610033CFF1 /* FBConnectGlobal.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		94E1735E151D1D610033CFF1 /* FBDialog.m in Sources */ = {isa = PBXBuildFile; fileRef = 94E172FE151D1D610033CFF1 /* FBDialog.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		94E1735F151D1D610033CFF1 /* FBFeedDialog.m in Sources */ = {isa = PBXBuildFile; fileRef = 94E17300151D1D610033CFF1 /* FBFeedDialog.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		94E17360151D1D610033CFF1 /* FBLoginButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 94E17302151D1D610033CFF1 /* FBLoginButton.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		94E17361151D1D610033CFF1 /* FBLoginDialog.m in Sources */ = {isa = PBXBuildFile; fileRef = 94E17304151D1D610033CFF1 /* FBLoginDialog.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		94E17362151D1D610033CFF1 /* FBPermissionDialog.m in Sources */ = {isa = PBXBuildFile; fileRef = 94E17306151D1D610033CFF1 /* FBPermissionDialog.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		94E17363151D1D610033CFF1 /* FBRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 94E17308151D1D610033CFF1 /* FBRequest.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		94E17364151D1D610033CFF1 /* FBSession.m in Sources */ = {isa = PBXBuildFile; fileRef = 94E1730A151D1D610033CFF1 /* FBSession.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		94E17365151D1D610033CFF1 /* FBStreamDialog.m in Sources */ = {isa = PBXBuildFile; fileRef = 94E1730C151D1D610033CFF1 /* FBStreamDialog.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		94E17366151D1D610033CFF1 /* FBXMLHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 94E1730E151D1D610033CFF1 /* FBXMLHandler.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		94E17367151D1D610033CFF1 /* SHKFacebook.m in Sources */ = {isa = PBXBuildFile; fileRef = 94E17310151D1D610033CFF1 /* SHKFacebook.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		94E17368151D1D610033CFF1 /* SHKFBStreamDialog.m in Sources */ = {isa = PBXBuildFile; fileRef = 94E17312151D1D610033CFF1 /* SHKFBStreamDialog.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		94E17369151D1D610033CFF1 /* SHKGoogleReader.m in Sources */ = {isa = PBXBuildFile; fileRef = 94E17315151D1D610033CFF1 /* SHKGoogleReader.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		94E1736A151D1D610033CFF1 /* SHKInstapaper.m in Sources */ = {isa = PBXBuildFile; fileRef = 94E17318151D1D610033CFF1 /* SHKInstapaper.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		94E1736B151D1D610033CFF1 /* SHKPinboard.m in Sources */ = {isa = PBXBuildFile; fileRef = 94E1731B151D1D610033CFF1 /* SHKPinboard.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		94E1736C151D1D610033CFF1 /* SHKReadItLater.m in Sources */ = {isa = PBXBuildFile; fileRef = 94E1731E151D1D610033CFF1 /* SHKReadItLater.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		94E1736D151D1D610033CFF1 /* SHKTumblr.m in Sources */ = {isa = PBXBuildFile; fileRef = 94E17321151D1D610033CFF1 /* SHKTumblr.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		94E1736E151D1D610033CFF1 /* SHKTwitter.m in Sources */ = {isa = PBXBuildFile; fileRef = 94E17324151D1D610033CFF1 /* SHKTwitter.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		94E1736F151D1D610033CFF1 /* SHKTwitterForm.m in Sources */ = {isa = PBXBuildFile; fileRef = 94E17326151D1D610033CFF1 /* SHKTwitterForm.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		94E17370151D1D610033CFF1 /* SHKActionSheet.m in Sources */ = {isa = PBXBuildFile; fileRef = 94E1732A151D1D610033CFF1 /* SHKActionSheet.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		94E17371151D1D610033CFF1 /* SHKActivityIndicator.m in Sources */ = {isa = PBXBuildFile; fileRef = 94E1732C151D1D610033CFF1 /* SHKActivityIndicator.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		94E17372151D1D610033CFF1 /* SHKFormController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94E1732E151D1D610033CFF1 /* SHKFormController.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		94E17373151D1D610033CFF1 /* SHKFormFieldCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 94E17330151D1D610033CFF1 /* SHKFormFieldCell.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		94E17374151D1D610033CFF1 /* SHKFormFieldSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = 94E17332151D1D610033CFF1 /* SHKFormFieldSettings.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		94E17375151D1D610033CFF1 /* SHKOAuthView.m in Sources */ = {isa = PBXBuildFile; fileRef = 94E17334151D1D610033CFF1 /* SHKOAuthView.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		94E17376151D1D610033CFF1 /* SHKShareMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 94E17336151D1D610033CFF1 /* SHKShareMenu.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		94E17377151D1D610033CFF1 /* SHKViewControllerWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 94E17338151D1D610033CFF1 /* SHKViewControllerWrapper.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		94E1737E151D1D910033CFF1 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94E17378151D1D7E0033CFF1 /* SystemConfiguration.framework */; };
 		94E1737F151D1D930033CFF1 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94E1737A151D1D820033CFF1 /* MessageUI.framework */; };
 		94E17380151D1D950033CFF1 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94E1737C151D1D870033CFF1 /* Security.framework */; };
@@ -743,10 +743,10 @@
 				94E17340151D1D610033CFF1 /* Base64Transcoder.c in Sources */,
 				94E17341151D1D610033CFF1 /* hmac.c in Sources */,
 				94E17342151D1D610033CFF1 /* sha1.c in Sources */,
-				94E17343151D1D610033CFF1 /* OAAsynchronousDataFetcher.m in Sources */,
-				94E17344151D1D610033CFF1 /* OAConsumer.m in Sources */,
 				94E17345151D1D610033CFF1 /* OADataFetcher.m in Sources */,
 				94E17346151D1D610033CFF1 /* OAHMAC_SHA1SignatureProvider.m in Sources */,
+				94E17343151D1D610033CFF1 /* OAAsynchronousDataFetcher.m in Sources */,
+				94E17344151D1D610033CFF1 /* OAConsumer.m in Sources */,
 				94E17347151D1D610033CFF1 /* OAMutableURLRequest.m in Sources */,
 				94E17348151D1D610033CFF1 /* OAPlaintextSignatureProvider.m in Sources */,
 				94E17349151D1D610033CFF1 /* OARequestParameter.m in Sources */,
@@ -925,6 +925,7 @@
 				94E17293151D1CB30033CFF1 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
