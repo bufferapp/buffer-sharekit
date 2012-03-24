@@ -89,7 +89,7 @@
 		43EF406E11D3FFF800B1F700 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43EF406D11D3FFF800B1F700 /* Security.framework */; };
 		43FF9C7412270E9F00ADE53C /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 43FF9C7212270E9F00ADE53C /* Localizable.strings */; };
 		944CC86B151E19E000B51FA3 /* SHKBuffer.m in Sources */ = {isa = PBXBuildFile; fileRef = 944CC86A151E19E000B51FA3 /* SHKBuffer.m */; };
-		944CC86E151E1A0100B51FA3 /* SHKFoursquareV2OAuthView.m in Sources */ = {isa = PBXBuildFile; fileRef = 944CC86D151E19EE00B51FA3 /* SHKFoursquareV2OAuthView.m */; };
+		944CC875151E1C5300B51FA3 /* SHKBufferOAuthView.m in Sources */ = {isa = PBXBuildFile; fileRef = 944CC874151E1C5300B51FA3 /* SHKBufferOAuthView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -250,8 +250,8 @@
 		8D1107310486CEB800E47090 /* ShareKit-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "ShareKit-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
 		944CC869151E19E000B51FA3 /* SHKBuffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKBuffer.h; sourceTree = "<group>"; };
 		944CC86A151E19E000B51FA3 /* SHKBuffer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHKBuffer.m; sourceTree = "<group>"; };
-		944CC86C151E19EE00B51FA3 /* SHKFoursquareV2OAuthView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SHKFoursquareV2OAuthView.h; sourceTree = "<group>"; };
-		944CC86D151E19EE00B51FA3 /* SHKFoursquareV2OAuthView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SHKFoursquareV2OAuthView.m; sourceTree = "<group>"; };
+		944CC873151E1C5300B51FA3 /* SHKBufferOAuthView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKBufferOAuthView.h; sourceTree = "<group>"; };
+		944CC874151E1C5300B51FA3 /* SHKBufferOAuthView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHKBufferOAuthView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -742,8 +742,8 @@
 			children = (
 				944CC869151E19E000B51FA3 /* SHKBuffer.h */,
 				944CC86A151E19E000B51FA3 /* SHKBuffer.m */,
-				944CC86C151E19EE00B51FA3 /* SHKFoursquareV2OAuthView.h */,
-				944CC86D151E19EE00B51FA3 /* SHKFoursquareV2OAuthView.m */,
+				944CC873151E1C5300B51FA3 /* SHKBufferOAuthView.h */,
+				944CC874151E1C5300B51FA3 /* SHKBufferOAuthView.m */,
 			);
 			name = Buffer;
 			sourceTree = "<group>";
@@ -885,7 +885,7 @@
 				43B934B511FE682600C9D3F3 /* SHKFBStreamDialog.m in Sources */,
 				432B147C11FF4B0700291B37 /* SHKPhotoAlbum.m in Sources */,
 				944CC86B151E19E000B51FA3 /* SHKBuffer.m in Sources */,
-				944CC86E151E1A0100B51FA3 /* SHKFoursquareV2OAuthView.m in Sources */,
+				944CC875151E1C5300B51FA3 /* SHKBufferOAuthView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

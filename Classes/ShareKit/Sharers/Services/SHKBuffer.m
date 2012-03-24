@@ -7,7 +7,7 @@
 //
 
 #import "SHKBuffer.h"
-#import "SHKFoursquareV2OAuthView.h"
+#import "SHKBufferOAuthView.h"
 
 @implementation SHKBuffer
 
@@ -64,12 +64,14 @@ static NSString *accessTokenKey = @"accessToken";
 	return [self restoreAccessToken];
 }
 
+
 - (void)promptAuthorization {
 	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@?client_id=4f6db4dc512f7ec56f00000a&response_type=code&redirect_uri=urn:ietf:wg:oauth:2.0:oob", authorizeURL]];
     
-	SHKFoursquareV2OAuthView *auth = [[SHKFoursquareV2OAuthView alloc] initWithURL:url delegate:self];
-	[[SHK currentHelper] showViewController:auth];
+    SHKBufferOAuthView *auth = [[SHKBufferOAuthView alloc] init];
+	[[SHK currentHelper] showViewController:auth];	
 	[auth release];
+	
 }
 
 - (NSURL *)authorizeCallbackURL {
@@ -77,7 +79,7 @@ static NSString *accessTokenKey = @"accessToken";
 }
 
 
-
+/*
 - (void)tokenAuthorizeView:(SHKOAuthView *)authView didFinishWithSuccess:(BOOL)success queryParams:(NSMutableDictionary *)queryParams error:(NSError *)error {
 	[[SHK currentHelper] hideCurrentViewControllerAnimated:YES];
     if (success) {
@@ -109,7 +111,9 @@ static NSString *accessTokenKey = @"accessToken";
                forKey:accessTokenKey
             forSharer:[self sharerId]];
 }
-
+*/
+ 
+ 
 - (BOOL)restoreAccessToken {
 	if (self.accessToken != nil)
 		return YES;
@@ -120,6 +124,7 @@ static NSString *accessTokenKey = @"accessToken";
 	return self.accessToken != nil;
 }
 
+/*
 + (void)deleteStoredAccessToken {
 	NSString *sharerId = [self sharerId];
 	
@@ -136,6 +141,6 @@ static NSString *accessTokenKey = @"accessToken";
         [storage deleteCookie:each];
     }
 }
-
+*/
 
 @end
