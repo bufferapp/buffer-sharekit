@@ -90,6 +90,13 @@
 		43FF9C7412270E9F00ADE53C /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 43FF9C7212270E9F00ADE53C /* Localizable.strings */; };
 		944CC86B151E19E000B51FA3 /* SHKBuffer.m in Sources */ = {isa = PBXBuildFile; fileRef = 944CC86A151E19E000B51FA3 /* SHKBuffer.m */; };
 		944CC875151E1C5300B51FA3 /* SHKBufferOAuthView.m in Sources */ = {isa = PBXBuildFile; fileRef = 944CC874151E1C5300B51FA3 /* SHKBufferOAuthView.m */; };
+		944CC87C151E690E00B51FA3 /* SHKBufferSheetView.m in Sources */ = {isa = PBXBuildFile; fileRef = 944CC87B151E690D00B51FA3 /* SHKBufferSheetView.m */; };
+		944CC88C151E744C00B51FA3 /* NSObject+SBJSON.m in Sources */ = {isa = PBXBuildFile; fileRef = 944CC881151E744C00B51FA3 /* NSObject+SBJSON.m */; };
+		944CC88D151E744C00B51FA3 /* NSString+SBJSON.m in Sources */ = {isa = PBXBuildFile; fileRef = 944CC883151E744C00B51FA3 /* NSString+SBJSON.m */; };
+		944CC88E151E744C00B51FA3 /* SBJSON.m in Sources */ = {isa = PBXBuildFile; fileRef = 944CC885151E744C00B51FA3 /* SBJSON.m */; };
+		944CC88F151E744C00B51FA3 /* SBJsonBase.m in Sources */ = {isa = PBXBuildFile; fileRef = 944CC887151E744C00B51FA3 /* SBJsonBase.m */; };
+		944CC890151E744C00B51FA3 /* SBJsonParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 944CC889151E744C00B51FA3 /* SBJsonParser.m */; };
+		944CC891151E744C00B51FA3 /* SBJsonWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = 944CC88B151E744C00B51FA3 /* SBJsonWriter.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -252,6 +259,21 @@
 		944CC86A151E19E000B51FA3 /* SHKBuffer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHKBuffer.m; sourceTree = "<group>"; };
 		944CC873151E1C5300B51FA3 /* SHKBufferOAuthView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKBufferOAuthView.h; sourceTree = "<group>"; };
 		944CC874151E1C5300B51FA3 /* SHKBufferOAuthView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHKBufferOAuthView.m; sourceTree = "<group>"; };
+		944CC87A151E690D00B51FA3 /* SHKBufferSheetView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKBufferSheetView.h; sourceTree = "<group>"; };
+		944CC87B151E690D00B51FA3 /* SHKBufferSheetView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHKBufferSheetView.m; sourceTree = "<group>"; };
+		944CC87F151E744C00B51FA3 /* JSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSON.h; sourceTree = "<group>"; };
+		944CC880151E744C00B51FA3 /* NSObject+SBJSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+SBJSON.h"; sourceTree = "<group>"; };
+		944CC881151E744C00B51FA3 /* NSObject+SBJSON.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+SBJSON.m"; sourceTree = "<group>"; };
+		944CC882151E744C00B51FA3 /* NSString+SBJSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+SBJSON.h"; sourceTree = "<group>"; };
+		944CC883151E744C00B51FA3 /* NSString+SBJSON.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+SBJSON.m"; sourceTree = "<group>"; };
+		944CC884151E744C00B51FA3 /* SBJSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJSON.h; sourceTree = "<group>"; };
+		944CC885151E744C00B51FA3 /* SBJSON.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJSON.m; sourceTree = "<group>"; };
+		944CC886151E744C00B51FA3 /* SBJsonBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonBase.h; sourceTree = "<group>"; };
+		944CC887151E744C00B51FA3 /* SBJsonBase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonBase.m; sourceTree = "<group>"; };
+		944CC888151E744C00B51FA3 /* SBJsonParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonParser.h; sourceTree = "<group>"; };
+		944CC889151E744C00B51FA3 /* SBJsonParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonParser.m; sourceTree = "<group>"; };
+		944CC88A151E744C00B51FA3 /* SBJsonWriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonWriter.h; sourceTree = "<group>"; };
+		944CC88B151E744C00B51FA3 /* SBJsonWriter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonWriter.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -744,8 +766,31 @@
 				944CC86A151E19E000B51FA3 /* SHKBuffer.m */,
 				944CC873151E1C5300B51FA3 /* SHKBufferOAuthView.h */,
 				944CC874151E1C5300B51FA3 /* SHKBufferOAuthView.m */,
+				944CC87A151E690D00B51FA3 /* SHKBufferSheetView.h */,
+				944CC87B151E690D00B51FA3 /* SHKBufferSheetView.m */,
+				944CC87E151E744000B51FA3 /* JSON */,
 			);
 			name = Buffer;
+			sourceTree = "<group>";
+		};
+		944CC87E151E744000B51FA3 /* JSON */ = {
+			isa = PBXGroup;
+			children = (
+				944CC87F151E744C00B51FA3 /* JSON.h */,
+				944CC880151E744C00B51FA3 /* NSObject+SBJSON.h */,
+				944CC881151E744C00B51FA3 /* NSObject+SBJSON.m */,
+				944CC882151E744C00B51FA3 /* NSString+SBJSON.h */,
+				944CC883151E744C00B51FA3 /* NSString+SBJSON.m */,
+				944CC884151E744C00B51FA3 /* SBJSON.h */,
+				944CC885151E744C00B51FA3 /* SBJSON.m */,
+				944CC886151E744C00B51FA3 /* SBJsonBase.h */,
+				944CC887151E744C00B51FA3 /* SBJsonBase.m */,
+				944CC888151E744C00B51FA3 /* SBJsonParser.h */,
+				944CC889151E744C00B51FA3 /* SBJsonParser.m */,
+				944CC88A151E744C00B51FA3 /* SBJsonWriter.h */,
+				944CC88B151E744C00B51FA3 /* SBJsonWriter.m */,
+			);
+			name = JSON;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -886,6 +931,13 @@
 				432B147C11FF4B0700291B37 /* SHKPhotoAlbum.m in Sources */,
 				944CC86B151E19E000B51FA3 /* SHKBuffer.m in Sources */,
 				944CC875151E1C5300B51FA3 /* SHKBufferOAuthView.m in Sources */,
+				944CC87C151E690E00B51FA3 /* SHKBufferSheetView.m in Sources */,
+				944CC88C151E744C00B51FA3 /* NSObject+SBJSON.m in Sources */,
+				944CC88D151E744C00B51FA3 /* NSString+SBJSON.m in Sources */,
+				944CC88E151E744C00B51FA3 /* SBJSON.m in Sources */,
+				944CC88F151E744C00B51FA3 /* SBJsonBase.m in Sources */,
+				944CC890151E744C00B51FA3 /* SBJsonParser.m in Sources */,
+				944CC891151E744C00B51FA3 /* SBJsonWriter.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

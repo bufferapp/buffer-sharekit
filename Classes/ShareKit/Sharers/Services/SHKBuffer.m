@@ -8,6 +8,7 @@
 
 #import "SHKBuffer.h"
 #import "SHKBufferOAuthView.h"
+#import "SHKBufferSheetView.h"
 
 @implementation SHKBuffer
 
@@ -15,7 +16,7 @@
 
 static NSString *authorizeURL = @"https://bufferapp.com/oauth2/authorize";
 static NSString *bufferCallbackUrl = @"urn:ietf:wg:oauth:2.0:oob";
-static NSString *accessTokenKey = @"accessToken";
+static NSString *accessTokenKey = @"SHKBufferAccessToken";
 
 - (id)init {
     if (self = [super init]){
@@ -104,14 +105,20 @@ static NSString *accessTokenKey = @"accessToken";
 	[[SHK currentHelper] hideCurrentViewControllerAnimated:YES];
     //[self authDidFinish:NO];
 }
-
-
-- (void)storeAccessToken {	
-	[SHK setAuthValue:self.accessToken
-               forKey:accessTokenKey
-            forSharer:[self sharerId]];
-}
 */
+
+- (void)storeAccessToken:(NSString *)token {
+    
+    NSLog(@"Store!!!");
+    
+	[SHK setAuthValue:token
+               forKey:@"SHKBufferAccessToken"
+            forSharer:[self sharerId]];
+    
+    [[SHK currentHelper] hideCurrentViewControllerAnimated:YES];
+    
+}
+
  
  
 - (BOOL)restoreAccessToken {
@@ -142,5 +149,22 @@ static NSString *accessTokenKey = @"accessToken";
     }
 }
 */
+
+
+
+
+- (void)show {
+    
+    SHKBufferSheetView *bufferSheet = [[SHKBufferSheetView alloc] init];
+	
+	[self pushViewController:bufferSheet animated:NO];
+	
+	[[SHK currentHelper] showViewController:self];
+    
+    NSLog(@"Show!!");
+}
+
+
+
 
 @end

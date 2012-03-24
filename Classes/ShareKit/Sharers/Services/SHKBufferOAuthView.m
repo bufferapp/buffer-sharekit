@@ -7,6 +7,7 @@
 //
 
 #import "SHKBufferOAuthView.h"
+#import "JSON.h"
 
 @implementation SHKBufferOAuthView
 
@@ -16,6 +17,7 @@
     self = [super init];
 	if (self != nil) {
         // Custom initialization
+        self.delegate = sender;
     }
     return self;
 }
@@ -39,7 +41,7 @@
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
     
     NSURL *url = request.URL;
-	NSString *urlString = url.absoluteString;
+    NSString *urlString = url.absoluteString;
     
     NSLog(@"urlString %@", urlString);
     
@@ -93,11 +95,15 @@
 
 
 - (void)accessTokenRecieved:(SHKRequest *)aRequest {
-    NSString *result = [[request getResult] jsonParser];
+    NSDictionary *result = [[request getResult] JSONValue];
     
-    NSLog(@"results %@", result);
+    [self.delegate storeAccessToken:[result valueForKey:@"access_token"]];
+    //- (void)storeAccessToken:(NSString *)token
+     
+    NSLog(@"results %@", [result valueForKey:@"access_token"]);
     
 }
+
 
 
 - (void)viewDidUnload {
