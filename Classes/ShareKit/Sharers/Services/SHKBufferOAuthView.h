@@ -7,13 +7,17 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "SHK.h"
+#import "SHKRequest.h"
 
-@interface SHKBufferOAuthView : UIViewController {
+@interface SHKBufferOAuthView : UIViewController <UIWebViewDelegate> {
     id delegate;
 	UIWebView *bufferOAuthWebView;
+    SHKRequest *request;
 }
 
 @property (nonatomic, retain) id delegate;
 @property (nonatomic, retain) UIWebView *bufferOAuthWebView;
+@property (nonatomic, retain) SHKRequest *request;
 
 @end

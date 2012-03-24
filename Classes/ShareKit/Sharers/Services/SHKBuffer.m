@@ -68,8 +68,8 @@ static NSString *accessTokenKey = @"accessToken";
 - (void)promptAuthorization {
 	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@?client_id=4f6db4dc512f7ec56f00000a&response_type=code&redirect_uri=urn:ietf:wg:oauth:2.0:oob", authorizeURL]];
     
-    SHKBufferOAuthView *auth = [[SHKBufferOAuthView alloc] init];
-	[[SHK currentHelper] showViewController:auth];	
+    SHKBufferOAuthView *auth = [[SHKBufferOAuthView alloc] initWithSender:self];
+	[[SHK currentHelper] showViewController:auth];
 	[auth release];
 	
 }
