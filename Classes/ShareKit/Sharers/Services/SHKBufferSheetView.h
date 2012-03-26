@@ -7,7 +7,18 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "SHKRequest.h"
 
-@interface SHKBufferSheetView : UIViewController
+@interface SHKBufferSheetView : UIViewController {
+    UIScrollView *profileScrollView;
+    SHKRequest *request;
+    NSString *accessToken;
+}
+
+@property (retain, nonatomic) UIScrollView *profileScrollView;
+@property (nonatomic, retain) SHKRequest *request;
+@property (nonatomic, retain) NSString *accessToken;
+
+-(id)initWithToken:(NSString *)token;
 
 @end

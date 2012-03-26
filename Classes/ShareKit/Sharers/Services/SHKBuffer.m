@@ -154,14 +154,11 @@ static NSString *accessTokenKey = @"SHKBufferAccessToken";
 
 
 - (void)show {
-    
-    SHKBufferSheetView *bufferSheet = [[SHKBufferSheetView alloc] init];
+    SHKBufferSheetView *bufferSheet = [[SHKBufferSheetView alloc] initWithToken:self.accessToken];
 	
 	[self pushViewController:bufferSheet animated:NO];
 	
 	[[SHK currentHelper] showViewController:self];
-    
-    NSLog(@"Show!!");
 }
 
 
