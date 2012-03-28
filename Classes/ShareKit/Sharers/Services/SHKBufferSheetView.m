@@ -207,7 +207,35 @@
 
 
 -(void)addBufferStatus {
-    
+    if([self.selected_profiles count] == 0){
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle: @"No Profiles Selected"
+                                                        message: @"Select profile(s) to add this update to."
+                                                       delegate: self
+                                              cancelButtonTitle: @"OK"
+                                              otherButtonTitles: nil];
+        [alert show];
+    } else if([updateTextView.text length] == 0){
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle: @"No update content"
+                                                        message: @"Please add some content to this update."
+                                                       delegate: self
+                                              cancelButtonTitle: @"OK"
+                                              otherButtonTitles: nil];
+        [alert show];
+    /*
+    } else if([self twitterAccountActive] && [bufferText.text length] > 140){
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle: @"Update too long"
+                                                        message: @"Please reduce the number of characters."
+                                                       delegate: self
+                                              cancelButtonTitle: @"OK"
+                                              otherButtonTitles: nil];
+        [alert show];
+    */
+    } else {
+        /*
+        PostUpdateService *service = [[PostUpdateService alloc] init];
+        [service postUpdate:bufferText.text forProfiles:self.selected_profiles sendNow:FALSE withSender:self];
+        */
+    }
 }
 
 - (void)cancel {	
