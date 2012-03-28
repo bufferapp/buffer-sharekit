@@ -7,11 +7,12 @@
 //
 
 #import "SHKBufferSheetView.h"
+#import "SHK.h"
 #import "JSON.h"
 
 @implementation SHKBufferSheetView
 
-@synthesize profileScrollView, updateTextView, request, accessToken, profiles, selected_profiles;
+@synthesize delegate, profileScrollView, updateTextView, request, accessToken, profiles, selected_profiles;
 
 -(id)initWithToken:(NSString *)token {
     if (self) {
@@ -26,6 +27,13 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 	
+    self.view.backgroundColor = [UIColor whiteColor];
+    
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(cancel)];
+    
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Done" style:UIBarButtonItemStyleDone target:self action:@selector(addBufferStatus)];
+    
+    
     CGRect scrollViewFrame = CGRectMake(0, 6, 320, 50);
     self.profileScrollView = [[UIScrollView alloc] initWithFrame:scrollViewFrame];
     [self.view addSubview:profileScrollView];
@@ -196,6 +204,15 @@
     NSLog(@"profiles %@", [[self.profiles objectAtIndex:accountTag] valueForKey:@"id"]);
 }
 
+
+
+-(void)addBufferStatus {
+    
+}
+
+- (void)cancel {	
+	[[SHK currentHelper] hideCurrentViewControllerAnimated:YES];
+}
 
 
 - (void)viewDidUnload {

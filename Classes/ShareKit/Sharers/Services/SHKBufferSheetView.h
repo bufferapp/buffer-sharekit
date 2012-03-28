@@ -9,7 +9,8 @@
 #import <UIKit/UIKit.h>
 #import "SHKRequest.h"
 
-@interface SHKBufferSheetView : UIViewController {
+@interface SHKBufferSheetView : UIViewController <UITextViewDelegate> {
+    id delegate;
     UIScrollView *profileScrollView;
     UITextView *updateTextView;
     SHKRequest *request;
@@ -19,13 +20,14 @@
     NSMutableArray *selected_profiles;
 }
 
-@property (retain, nonatomic) UIScrollView *profileScrollView;
-@property (retain, nonatomic) UITextView *updateTextView;
+@property (nonatomic, retain) id delegate;
+@property (nonatomic, retain) UIScrollView *profileScrollView;
+@property (nonatomic, retain) UITextView *updateTextView;
 @property (nonatomic, retain) SHKRequest *request;
 @property (nonatomic, retain) NSString *accessToken;
 
-@property (retain, nonatomic) NSMutableArray *profiles;
-@property (retain, nonatomic) NSMutableArray *selected_profiles;
+@property (nonatomic, retain) NSMutableArray *profiles;
+@property (nonatomic, retain) NSMutableArray *selected_profiles;
 
 -(id)initWithToken:(NSString *)token;
 

@@ -154,10 +154,18 @@ static NSString *accessTokenKey = @"SHKBufferAccessToken";
 
 
 - (void)show {
+    if (item.shareType == SHKShareTypeURL) {
+		//[self shortenURL];
+	} else if (item.shareType == SHKShareTypeImage) {
+		[item setCustomValue:item.title forKey:@"status"];
+	} else if (item.shareType == SHKShareTypeText) {
+		[item setCustomValue:item.text forKey:@"status"];
+	}
+    
+    
     SHKBufferSheetView *bufferSheet = [[SHKBufferSheetView alloc] initWithToken:self.accessToken];
-	
+    bufferSheet.delegate = self;
 	[self pushViewController:bufferSheet animated:NO];
-	
 	[[SHK currentHelper] showViewController:self];
 }
 
