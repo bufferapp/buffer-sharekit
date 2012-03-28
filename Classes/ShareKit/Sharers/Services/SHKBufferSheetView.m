@@ -30,12 +30,7 @@
     self.profileScrollView = [[UIScrollView alloc] initWithFrame:scrollViewFrame];
     [self.view addSubview:profileScrollView];
     
-    CGSize scrollViewContentSize = CGSizeMake(640, 460);
-    [profileScrollView setContentSize:scrollViewContentSize];
-    
-    UILabel *label  = [[UILabel alloc] initWithFrame:CGRectMake(200, 200, 50, 21)];
-    [label setText:@"Hello"];
-    [profileScrollView addSubview:label];
+    [profileScrollView setPagingEnabled:YES];
     
     [self getBufferProfiles];
 }
@@ -58,19 +53,107 @@
 -(void)loadBufferProfiles:(SHKRequest *)aRequest {
     NSDictionary *result = [[request getResult] JSONValue];
     
-    if (aRequest.success)
-    {
+    if (aRequest.success) {
         // Do something with the result
-        NSDictionary *result = [[aRequest getResult] JSONValue];
+        NSMutableArray *profiles = [[aRequest getResult] JSONValue];
         
+        int buttonCount = 0;
+        
+        if([profiles count] != 0){
+            for (int i = 0; i < profiles.count; i++) {
+                CGRect frame;
+                
+                if(i == 0) {
+                    frame.origin.x = 7;
+                } else if(i % 6 == 0){
+                    frame.origin.x = (320 * (i / 6)) + 7;
+                    buttonCount = 0;
+                } else {
+                    buttonCount++;
+                    frame.origin.x = ((320 * floor(i / 6)) + (52.7 * buttonCount) + 7);
+                }
+                
+                frame.origin.y = 0;
+                frame.size = CGSizeMake(44, 49);
+                
+                // Create Button
+                UIButton *accountButton = [UIButton buttonWithType:UIButtonTypeCustom];
+                accountButton.frame = frame;
+                accountButton.tag = (i + 1);
+                [accountButton setAlpha:0.7];
+                [accountButton setBackgroundColor:[UIColor clearColor]];
+                [accountButton addTarget:self action:@selector(toggleAccount:) forControlEvents:UIControlEventTouchUpInside];
+                
+                
+                NSString *avatar = [[profiles objectAtIndex:i] valueForKey:@"avatar"];
+                UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 44, 44)];
+                [imageView setImage:[UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:avatar]]]];
+                imageView.tag = (i + 1);
+                imageView.userInteractionEnabled = NO;
+                
+                accountButton.accessibilityLabel = [NSString stringWithFormat:@"%@ %@", [[profiles objectAtIndex:i] valueForKey:@"service_username"], [[profiles objectAtIndex:i] valueForKey:@"service"]];
+                
+                [accountButton addSubview:imageView];
+                
+                
+                UIImageView *networkIcon = [[UIImageView alloc] initWithFrame:CGRectMake(31, 31, 13, 13)];
+                
+                networkIcon.userInteractionEnabled = NO;
+                
+                if([[[profiles objectAtIndex:i] valueForKey:@"service"] isEqualToString:@"twitter"]){
+                    [networkIcon setImage:[UIImage imageNamed:@"twitter-icon.png"]];
+                }
+                
+                if([[[profiles objectAtIndex:i] valueForKey:@"service"] isEqualToString:@"facebook"]){
+                    [networkIcon setImage:[UIImage imageNamed:@"facebook-icon.png"]];
+                }
+                
+                if([[[profiles objectAtIndex:i] valueForKey:@"service"] isEqualToString:@"gplus"]){
+                    [networkIcon setImage:[UIImage imageNamed:@"gplus-icon.png"]];
+                }
+                
+                if([[[profiles objectAtIndex:i] valueForKey:@"service"] isEqualToString:@"linkedin"]){
+                    [networkIcon setImage:[UIImage imageNamed:@"linkedin-icon.png"]];
+                }
+                
+                [accountButton addSubview:networkIcon];
+                
+                [profileScrollView addSubview:accountButton];
+                
+                
+                /*
+                // Select Default Profiles
+                if([[[[profiles objectAtIndex:i] valueForKey:@"default"] stringValue] isEqualToString:@"1"]){
+                    
+                    [self.selected_profiles addObject:[[self.profiles objectAtIndex:i] valueForKey:@"id"]];
+                    
+                    [accountButton setAlpha:1.0];
+                    UIImage *buttonImage = [UIImage imageNamed:@"avatar-active.png"];
+                    [accountButton setBackgroundImage:buttonImage forState:UIControlStateNormal];
+                    
+                    if([self.selected_profiles count] != 1){
+                        bufferProfilesLabel.text = [NSString stringWithFormat:@"%d Profiles selected.", [self.selected_profiles count]];
+                    } else {
+                        bufferProfilesLabel.text = @"1 Profile selected.";
+                    }
+                }
+                 */
+            }
+            
+            
+            if(profiles.count <= 6){
+                profileScrollView.contentSize = CGSizeMake(320, 44);
+            } else {
+                profileScrollView.contentSize = CGSizeMake(320 * ceil((float)profiles.count / 6), 44);
+            }
+            
+        } else {
+            
+        }
         
         NSLog(@"result %@", result);
         
-    }
-    
-    // If there is an error, handle it
-    else
-    {
+    } else {
         // SHKRequest has a few properties that can help find out what happened
         // aRequest.response is the NSHTTPURLResponse of the request
         // aRequest.response.statusCode is the HTTTP status code of the response
