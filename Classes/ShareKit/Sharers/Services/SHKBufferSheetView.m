@@ -47,7 +47,7 @@
         NSLog(@"request %@", requestString);
         
         self.request = [[[SHKRequest alloc] initWithURL:[NSURL URLWithString:requestString]
-                                                 params:requestString
+                                                 params:nil
                                                delegate:self
                                      isFinishedSelector:@selector(loadBufferProfiles:)
                                                  method:@"GET"
@@ -56,12 +56,16 @@
 }
 
 -(void)loadBufferProfiles:(SHKRequest *)aRequest {
-    //NSDictionary *result = [[request getResult] JSONValue];
+    NSDictionary *result = [[request getResult] JSONValue];
     
     if (aRequest.success)
     {
         // Do something with the result
-        NSString *bodyOfResponse = [aRequest getResult];        
+        NSDictionary *result = [[aRequest getResult] JSONValue];
+        
+        
+        NSLog(@"result %@", result);
+        
     }
     
     // If there is an error, handle it
