@@ -43,6 +43,7 @@
     self.updateCharLabel.textAlignment = UITextAlignmentRight;
     self.updateCharLabel.textColor = [UIColor darkGrayColor];
     self.updateCharLabel.text = @"";
+    self.updateCharLabel.font = [UIFont systemFontOfSize:13];
     [self.view addSubview:updateCharLabel];
     
     CGRect updateTextFrame = CGRectMake(0, 57, 320, 105);
