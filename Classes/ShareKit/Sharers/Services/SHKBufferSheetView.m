@@ -43,6 +43,8 @@
     self.updateTextView = [[UITextView alloc] initWithFrame:updateTextFrame];
     [self.view addSubview:updateTextView];
     
+    [self.updateTextView setFont:[UIFont systemFontOfSize:13]];
+    
     [self.updateTextView becomeFirstResponder];
     
     
@@ -70,8 +72,6 @@
 }
 
 -(void)loadBufferProfiles:(SHKRequest *)aRequest {
-    NSDictionary *result = [[request getResult] JSONValue];
-    
     if (aRequest.success) {
         // Do something with the result
         self.profiles = [[aRequest getResult] JSONValue];
@@ -161,25 +161,11 @@
         } else {
             
         }
-        
-        //NSLog(@"result %@", result);
-        
     } else {
-        // SHKRequest has a few properties that can help find out what happened
-        // aRequest.response is the NSHTTPURLResponse of the request
-        // aRequest.response.statusCode is the HTTTP status code of the response
-        // [aRequest getResult] returns a NSString of the body of the response
-        
-        
-        // What was the status code?
         int HTTPstatusCode = aRequest.response.statusCode; // 404? 401? 500?
-        
-        // What was the value of some header value?
         NSString *contentType = [aRequest.headers objectForKey:@"Content-Type"];
-        
         NSLog(@"HTTPstatusCode %d, type %@", HTTPstatusCode, contentType);
     }
-    
 }
 
 
@@ -200,8 +186,6 @@
     }
     
     //[self detectTwitterAccountActive];
-    
-    NSLog(@"profiles %@", [[self.profiles objectAtIndex:accountTag] valueForKey:@"id"]);
 }
 
 
@@ -231,15 +215,24 @@
         [alert show];
     */
     } else {
-        /*
-        PostUpdateService *service = [[PostUpdateService alloc] init];
-        [service postUpdate:bufferText.text forProfiles:self.selected_profiles sendNow:FALSE withSender:self];
-        */
+        [self postBufferUpdate];
     }
 }
 
-- (void)cancel {	
+
+-(void)postBufferUpdate {
+    
+    [updateTextView resignFirstResponder];
+    
+    [[SHKActivityIndicator currentIndicator] displayActivity:SHKLocalizedString(@"Posting...")];
+    
+    [self.delegate postBufferUpdate:updateTextView.text toProfiles:self.selected_profiles];
+     
+}
+
+- (void)cancel {
 	[[SHK currentHelper] hideCurrentViewControllerAnimated:YES];
+	[self.delegate sendDidCancel];
 }
 
 

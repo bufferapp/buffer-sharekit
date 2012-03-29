@@ -69,7 +69,7 @@ static NSString *accessTokenKey = @"SHKBufferAccessToken";
 - (void)promptAuthorization {
 	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@?client_id=4f6db4dc512f7ec56f00000a&response_type=code&redirect_uri=urn:ietf:wg:oauth:2.0:oob", authorizeURL]];
     
-    SHKBufferOAuthView *auth = [[SHKBufferOAuthView alloc] initWithSender:self];
+    SHKBufferOAuthView *auth = [[SHKBufferOAuthView alloc] init];
 	[[SHK currentHelper] showViewController:auth];
 	[auth release];
 	
@@ -79,47 +79,13 @@ static NSString *accessTokenKey = @"SHKBufferAccessToken";
 	return [NSURL URLWithString: bufferCallbackUrl];
 }
 
-
-/*
-- (void)tokenAuthorizeView:(SHKOAuthView *)authView didFinishWithSuccess:(BOOL)success queryParams:(NSMutableDictionary *)queryParams error:(NSError *)error {
-	[[SHK currentHelper] hideCurrentViewControllerAnimated:YES];
-    if (success) {
-        NSLog(@"token %@", [queryParams objectForKey:@"access_token"]);
-        self.accessToken = [queryParams objectForKey:@"access_token"];
-        [self storeAccessToken];
-        [self tryPendingAction];
-    } else {
-        [[[[UIAlertView alloc] initWithTitle:SHKLocalizedString(@"Access Error")
-                                     message:error!=nil?[error localizedDescription]:SHKLocalizedString(@"There was an error while sharing")
-                                    delegate:nil
-                           cancelButtonTitle:SHKLocalizedString(@"Close")
-                           otherButtonTitles:nil] autorelease] show];
-    }
-    
-    NSLog(@"Did Finish");
-    
-    //[self authDidFinish:success];
-}
-
-- (void)tokenAuthorizeCancelledView:(SHKOAuthView *)authView {
-	[[SHK currentHelper] hideCurrentViewControllerAnimated:YES];
-    //[self authDidFinish:NO];
-}
-*/
-
 - (void)storeAccessToken:(NSString *)token {
-    
-    NSLog(@"Store!!!");
-    
 	[SHK setAuthValue:token
                forKey:@"SHKBufferAccessToken"
             forSharer:[self sharerId]];
     
     [[SHK currentHelper] hideCurrentViewControllerAnimated:YES];
-    
 }
-
- 
  
 - (BOOL)restoreAccessToken {
 	if (self.accessToken != nil)
@@ -130,26 +96,6 @@ static NSString *accessTokenKey = @"SHKBufferAccessToken";
 	
 	return self.accessToken != nil;
 }
-
-/*
-+ (void)deleteStoredAccessToken {
-	NSString *sharerId = [self sharerId];
-	
-	[SHK removeAuthValueForKey:accessTokenKey forSharer:sharerId];
-}
-
-+ (void)logout {
-	[self deleteStoredAccessToken];
-	
-	// Clear cookies 
-    NSHTTPCookieStorage *storage = [NSHTTPCookieStorage sharedHTTPCookieStorage];
-    NSArray *cookies = [storage cookiesForURL:[NSURL URLWithString:authorizeURL]];
-    for (NSHTTPCookie *each in cookies)  {
-        [storage deleteCookie:each];
-    }
-}
-*/
-
 
 
 
@@ -171,5 +117,36 @@ static NSString *accessTokenKey = @"SHKBufferAccessToken";
 
 
 
+#pragma mark -
+#pragma mark Requests
+
+
+-(void)postBufferUpdate:(NSString *)updateText toProfiles:(NSMutableArray *)profiles {
+    [[SHKActivityIndicator currentIndicator] displayActivity:SHKLocalizedString(@"Posting...")];
+    
+    NSString *postUrl = [NSString stringWithFormat:@"https://api.bufferapp.com/1/updates/create.json?access_token=%@", self.accessToken];
+    
+    NSString *postParams = [NSString stringWithFormat:@"text=%@&shorten=0&profile_ids[]=%@", updateText, [profiles componentsJoinedByString:@"&profile_ids[]="]];
+    
+    
+    self.request = [[[SHKRequest alloc] initWithURL:[NSURL URLWithString:postUrl]
+                                             params:postParams
+                                           delegate:self
+                                 isFinishedSelector:@selector(updatePosted:)
+                                             method:@"POST"
+                                          autostart:YES] autorelease];
+    
+}
+
+-(void)updatePosted:(SHKRequest *)aRequest {
+    [[SHKActivityIndicator currentIndicator] hide];
+    
+    if (aRequest.success) {
+        // Notify delegate
+        [self sendDidFinish];
+    } else {
+        [self sendDidFailWithError:[SHK error:SHKLocalizedString(@"There was a problem adding to Buffer.")]];
+    }
+}
 
 @end

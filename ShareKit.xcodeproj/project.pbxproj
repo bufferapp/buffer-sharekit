@@ -776,10 +776,7 @@
 				944CC874151E1C5300B51FA3 /* SHKBufferOAuthView.m */,
 				944CC87A151E690D00B51FA3 /* SHKBufferSheetView.h */,
 				944CC87B151E690D00B51FA3 /* SHKBufferSheetView.m */,
-				944CC9D91523BF9000B51FA3 /* facebook-icon.png */,
-				944CC9DA1523BF9100B51FA3 /* twitter-icon.png */,
-				944CC9DB1523BF9300B51FA3 /* gplus-icon.png */,
-				944CC9DC1523BF9400B51FA3 /* linkedin-icon.png */,
+				94B626331525054800ECBFF1 /* Images */,
 				944CC87E151E744000B51FA3 /* JSON */,
 			);
 			name = Buffer;
@@ -803,6 +800,17 @@
 				944CC88B151E744C00B51FA3 /* SBJsonWriter.m */,
 			);
 			name = JSON;
+			sourceTree = "<group>";
+		};
+		94B626331525054800ECBFF1 /* Images */ = {
+			isa = PBXGroup;
+			children = (
+				944CC9D91523BF9000B51FA3 /* facebook-icon.png */,
+				944CC9DA1523BF9100B51FA3 /* twitter-icon.png */,
+				944CC9DB1523BF9300B51FA3 /* gplus-icon.png */,
+				944CC9DC1523BF9400B51FA3 /* linkedin-icon.png */,
+			);
+			name = Images;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

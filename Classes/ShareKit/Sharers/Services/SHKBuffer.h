@@ -19,4 +19,6 @@
 - (BOOL)restoreAccessToken;
 + (void)deleteStoredAccessToken;
 
+-(void)postBufferUpdate:(NSString *)updateText toProfiles:(NSMutableArray *)profiles;
+
 @end
