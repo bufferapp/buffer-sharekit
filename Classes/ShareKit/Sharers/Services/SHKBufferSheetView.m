@@ -3,7 +3,7 @@
 //  ShareKit
 //
 //  Created by Andrew Yates on 24/03/2012.
-//  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
+//  Copyright (c) 2012 Buffer, Inc. All rights reserved.
 //
 
 #import "SHKBufferSheetView.h"
@@ -12,7 +12,7 @@
 
 @implementation SHKBufferSheetView
 
-@synthesize delegate, profileScrollView, updateTextView, request, accessToken, profiles, selected_profiles;
+@synthesize delegate, profileScrollView, updateTextView, updateCharLabel, request, accessToken, profiles, selected_profiles;
 
 -(id)initWithToken:(NSString *)token {
     if (self) {
@@ -38,9 +38,16 @@
     self.profileScrollView = [[UIScrollView alloc] initWithFrame:scrollViewFrame];
     [self.view addSubview:profileScrollView];
     
+    CGRect charLabelFrame = CGRectMake(255, 170, 57, 21);
+    self.updateCharLabel = [[UILabel alloc] initWithFrame:charLabelFrame];
+    self.updateCharLabel.textAlignment = UITextAlignmentRight;
+    self.updateCharLabel.textColor = [UIColor darkGrayColor];
+    self.updateCharLabel.text = @"";
+    [self.view addSubview:updateCharLabel];
     
     CGRect updateTextFrame = CGRectMake(0, 57, 320, 105);
     self.updateTextView = [[UITextView alloc] initWithFrame:updateTextFrame];
+    self.updateTextView.delegate = self;
     [self.view addSubview:updateTextView];
     
     [self.updateTextView setFont:[UIFont systemFontOfSize:13]];
@@ -59,8 +66,6 @@
 -(void)getBufferProfiles {
         
         NSString *requestString = [NSString stringWithFormat:@"https://api.bufferapp.com/1/profiles.json?access_token=%@", self.accessToken];
-        
-        NSLog(@"request %@", requestString);
         
         self.request = [[[SHKRequest alloc] initWithURL:[NSURL URLWithString:requestString]
                                                  params:nil
@@ -99,7 +104,7 @@
                 UIButton *accountButton = [UIButton buttonWithType:UIButtonTypeCustom];
                 accountButton.frame = frame;
                 accountButton.tag = (i + 1);
-                [accountButton setAlpha:0.6];
+                [accountButton setAlpha:0.5];
                 [accountButton setBackgroundColor:[UIColor clearColor]];
                 [accountButton addTarget:self action:@selector(toggleAccount:) forControlEvents:UIControlEventTouchUpInside];
                 
@@ -158,6 +163,8 @@
                 profileScrollView.contentSize = CGSizeMake(320 * ceil((float)profiles.count / 6), 44);
             }
             
+            [self detectTwitterAccountActive];
+            
         } else {
             
         }
@@ -176,7 +183,7 @@
     
     if([self.selected_profiles indexOfObject:[[self.profiles objectAtIndex:accountTag] valueForKey:@"id"]] != NSNotFound){
         [self.selected_profiles removeObjectAtIndex:[self.selected_profiles indexOfObject:[[self.profiles objectAtIndex:accountTag] valueForKey:@"id"]]];
-        [sender setAlpha:0.6];
+        [sender setAlpha:0.5];
         [sender setBackgroundImage:nil forState:UIControlStateNormal];
     } else {
         [self.selected_profiles addObject:[[self.profiles objectAtIndex:accountTag] valueForKey:@"id"]];
@@ -185,8 +192,66 @@
         [sender setBackgroundImage:buttonImage forState:UIControlStateNormal];
     }
     
-    //[self detectTwitterAccountActive];
+    [self detectTwitterAccountActive];
 }
+
+
+
+- (void)textViewDidChange:(UITextView *)textView {
+	self.updateCharLabel.text = [NSString stringWithFormat:@"%d", 140 - [updateTextView.text length]];
+    
+    [self detectLinksAndUpdateCharactersRemaining];
+}
+
+
+
+-(void)detectLinksAndUpdateCharactersRemaining {
+    NSDataDetector *linkDetector = [NSDataDetector dataDetectorWithTypes:NSTextCheckingTypeLink error:nil];
+    NSArray *matches = [linkDetector matchesInString:updateTextView.text options:0 range:NSMakeRange(0, [updateTextView.text length])];
+    
+    if([matches count] != 0){
+        for (NSTextCheckingResult *match in matches) {
+            if ([match resultType] == NSTextCheckingTypeLink) {
+                NSURL *url = [match URL];
+                NSString *urlString = [NSString stringWithFormat:@"%@", url];
+                
+                // Add urlString Character Count to the character count & remove 20
+                self.updateCharLabel.text = [NSString stringWithFormat:@"%d", 140 - [updateTextView.text length] + [urlString length] - 20];
+                
+            }
+        }
+    }
+}
+
+
+
+
+-(void)detectTwitterAccountActive {
+    if([self twitterAccountActive]){
+        [self.updateCharLabel setHidden:NO];
+    } else {
+        [self.updateCharLabel setHidden:YES];
+    }
+}
+
+-(BOOL)twitterAccountActive {
+    for (NSString * profile_id in self.selected_profiles) {
+        for (NSMutableArray* profile in self.profiles) {
+            NSString *_id = [profile valueForKey:@"id"];
+            
+            if([_id isEqualToString:profile_id]){ 
+                NSString *service = [profile valueForKey:@"service"];
+                
+                if([service isEqualToString:@"twitter"]){ 
+                    return TRUE;
+                }
+            }
+        }
+    }
+    return FALSE;
+}
+
+
 
 
 

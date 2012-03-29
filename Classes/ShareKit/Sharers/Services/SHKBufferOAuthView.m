@@ -3,7 +3,7 @@
 //  ShareKit
 //
 //  Created by Andrew Yates on 24/03/2012.
-//  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
+//  Copyright (c) 2012 Buffer, Inc. All rights reserved.
 //
 
 #import "SHKBufferOAuthView.h"
@@ -11,19 +11,12 @@
 
 @implementation SHKBufferOAuthView
 
-@synthesize bufferOAuthWebView, request;
-
-- (id)initWithSender:(id)sender {
-    self = [super init];
-	if (self != nil) {
-        // Custom initialization
-        self.delegate = sender;
-    }
-    return self;
-}
+@synthesize bufferOAuthWebView, delegate, request;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    self.title = @"Login";
 	
     if(!bufferOAuthWebView){
         self.bufferOAuthWebView = [[[UIWebView alloc] initWithFrame:self.view.bounds] autorelease];
@@ -32,6 +25,8 @@
 		self.bufferOAuthWebView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
 		[self.view addSubview:bufferOAuthWebView];
     }
+    
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(cancel)];
     
     NSURL *url = [NSURL URLWithString:@"https://bufferapp.com/oauth2/authorize?client_id=4f6db4dc512f7ec56f00000a&response_type=code&redirect_uri=urn:ietf:wg:oauth:2.0:oob"];
 	
@@ -71,8 +66,6 @@
     
     if ([webViewTitle rangeOfString:@"code"].location != NSNotFound) {
         NSString *code = [webViewTitle stringByReplacingOccurrencesOfString:@"Success code=" withString:@""];
-        NSLog(@"code %@", code);
-        
         [self getAccessTokenWithCode:code];
     } else {
         //[oauthWebView setHidden:NO];
@@ -95,16 +88,19 @@
 
 
 - (void)accessTokenRecieved:(SHKRequest *)aRequest {
+    NSLog(@"request %@", [request getResult]);
+    
+    
     NSDictionary *result = [[request getResult] JSONValue];
     
     [self.delegate storeAccessToken:[result valueForKey:@"access_token"]];
-    //- (void)storeAccessToken:(NSString *)token
-     
-    NSLog(@"results %@", [result valueForKey:@"access_token"]);
     
 }
 
-
+- (void)cancel {
+	[[SHK currentHelper] hideCurrentViewControllerAnimated:YES];
+	[self.delegate sendDidCancel];
+}
 
 - (void)viewDidUnload {
     [super viewDidUnload];

@@ -3,7 +3,7 @@
 //  ShareKit
 //
 //  Created by Andrew Yates on 24/03/2012.
-//  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
+//  Copyright (c) 2012 Buffer, Inc. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
@@ -13,6 +13,7 @@
     id delegate;
     UIScrollView *profileScrollView;
     UITextView *updateTextView;
+    UILabel *updateCharLabel;
     SHKRequest *request;
     NSString *accessToken;
     
@@ -23,6 +24,7 @@
 @property (nonatomic, retain) id delegate;
 @property (nonatomic, retain) UIScrollView *profileScrollView;
 @property (nonatomic, retain) UITextView *updateTextView;
+@property (nonatomic, retain) UILabel *updateCharLabel;
 @property (nonatomic, retain) SHKRequest *request;
 @property (nonatomic, retain) NSString *accessToken;
 

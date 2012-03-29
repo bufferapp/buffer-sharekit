@@ -3,7 +3,7 @@
 //  BufferShareKit
 //
 //  Created by Andrew Yates on 24/03/2012.
-//  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
+//  Copyright (c) 2012 Buffer, Inc. All rights reserved.
 //
 
 #import "SHKBuffer.h"
@@ -67,12 +67,10 @@ static NSString *accessTokenKey = @"SHKBufferAccessToken";
 
 
 - (void)promptAuthorization {
-	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@?client_id=4f6db4dc512f7ec56f00000a&response_type=code&redirect_uri=urn:ietf:wg:oauth:2.0:oob", authorizeURL]];
-    
     SHKBufferOAuthView *auth = [[SHKBufferOAuthView alloc] init];
+    auth.delegate = self;
 	[[SHK currentHelper] showViewController:auth];
 	[auth release];
-	
 }
 
 - (NSURL *)authorizeCallbackURL {
@@ -80,6 +78,7 @@ static NSString *accessTokenKey = @"SHKBufferAccessToken";
 }
 
 - (void)storeAccessToken:(NSString *)token {
+    NSLog(@"Store!");
 	[SHK setAuthValue:token
                forKey:@"SHKBufferAccessToken"
             forSharer:[self sharerId]];
