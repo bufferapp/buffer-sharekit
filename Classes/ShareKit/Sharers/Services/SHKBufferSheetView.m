@@ -271,15 +271,13 @@
                                               cancelButtonTitle: @"OK"
                                               otherButtonTitles: nil];
         [alert show];
-    /*
-    } else if([self twitterAccountActive] && [bufferText.text length] > 140){
+    } else if([self twitterAccountActive] && [updateTextView.text length] > 140){
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle: @"Update too long"
                                                         message: @"Please reduce the number of characters."
                                                        delegate: self
                                               cancelButtonTitle: @"OK"
                                               otherButtonTitles: nil];
         [alert show];
-    */
     } else {
         [self postBufferUpdate];
     }
