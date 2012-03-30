@@ -38,11 +38,11 @@ static NSString *accessTokenKey = @"SHKBufferAccessToken";
 }
 
 + (BOOL)canShareImage {
-    return YES;
+    return NO;
 }
 
 + (BOOL)canShareText {
-    return YES;
+    return NO;
 }
 
 + (BOOL)canShareOffline {
@@ -52,7 +52,6 @@ static NSString *accessTokenKey = @"SHKBufferAccessToken";
 #pragma mark -
 #pragma mark Configuration : Dynamic Enable
 
-// Subclass if you need to dynamically enable/disable the action.  (For example if it only works with specific hardware)
 + (BOOL)canShare {
 	return YES;
 }
@@ -99,17 +98,15 @@ static NSString *accessTokenKey = @"SHKBufferAccessToken";
 
 
 - (void)show {
-    if (item.shareType == SHKShareTypeURL) {
-		//[self shortenURL];
-	} else if (item.shareType == SHKShareTypeImage) {
-		[item setCustomValue:item.title forKey:@"status"];
-	} else if (item.shareType == SHKShareTypeText) {
-		[item setCustomValue:item.text forKey:@"status"];
-	}
+    NSString *updateText = @"";
     
+    if (item.shareType == SHKShareTypeURL) {
+        updateText = [NSString stringWithFormat:@"%@ - %@", item.title, item.URL];
+	}
     
     SHKBufferSheetView *bufferSheet = [[SHKBufferSheetView alloc] initWithToken:self.accessToken];
     bufferSheet.delegate = self;
+    bufferSheet.updateCopy = updateText;
 	[self pushViewController:bufferSheet animated:NO];
 	[[SHK currentHelper] showViewController:self];
 }

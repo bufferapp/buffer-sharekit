@@ -12,7 +12,7 @@
 
 @implementation SHKBufferSheetView
 
-@synthesize delegate, profileScrollView, updateTextView, updateCharLabel, request, accessToken, profiles, selected_profiles;
+@synthesize delegate, profileScrollView, updateTextView, updateCharLabel, request, accessToken, profiles, selected_profiles, updateCopy;
 
 -(id)initWithToken:(NSString *)token {
     if (self) {
@@ -52,6 +52,9 @@
     [self.view addSubview:updateTextView];
     
     [self.updateTextView setFont:[UIFont systemFontOfSize:13]];
+    
+    
+    self.updateTextView.text = updateCopy;
     
     [self.updateTextView becomeFirstResponder];
     

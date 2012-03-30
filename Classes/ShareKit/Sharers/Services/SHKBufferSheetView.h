@@ -17,6 +17,8 @@
     SHKRequest *request;
     NSString *accessToken;
     
+    NSString *updateCopy;
+    
     NSMutableArray *profiles;
     NSMutableArray *selected_profiles;
 }
@@ -27,6 +29,8 @@
 @property (nonatomic, retain) UILabel *updateCharLabel;
 @property (nonatomic, retain) SHKRequest *request;
 @property (nonatomic, retain) NSString *accessToken;
+
+@property (nonatomic, retain) NSString *updateCopy;
 
 @property (nonatomic, retain) NSMutableArray *profiles;
 @property (nonatomic, retain) NSMutableArray *selected_profiles;
