@@ -387,8 +387,6 @@
 
 
 -(void)linkShortened:(SHKRequest *)aRequest {
-    
-    NSLog(@"Shortened %@", [request getResult]);
     NSArray *shortened_url = [[request getResult] JSONValue];
     
     if (aRequest.success) {
@@ -409,7 +407,8 @@
         [[SHKActivityIndicator currentIndicator] hide];
         
     } else {
-        //[self sendDidFailWithError:[SHK error:SHKLocalizedString(@"There was a problem adding to Buffer.")]];
+        // Error
+        [[SHKActivityIndicator currentIndicator] hide];
     }
 }
 
