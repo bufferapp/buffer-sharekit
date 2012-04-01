@@ -33,12 +33,23 @@
     
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Done" style:UIBarButtonItemStyleDone target:self action:@selector(addBufferStatus)];
     
+    CGRect scrollViewFrame;
+    CGRect charLabelFrame;
+    CGRect updateTextFrame;
     
-    CGRect scrollViewFrame = CGRectMake(0, 6, 320, 50);
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+        scrollViewFrame = CGRectMake(0, 6, 650, 50);
+        charLabelFrame = CGRectMake(584, 264, 57, 21);
+        updateTextFrame = CGRectMake(0, 60, 650, 138);
+    } else {
+        scrollViewFrame = CGRectMake(0, 6, 320, 50);
+        charLabelFrame = CGRectMake(255, 170, 57, 21);
+        updateTextFrame = CGRectMake(0, 57, 320, 105);
+    }
+    
     self.profileScrollView = [[UIScrollView alloc] initWithFrame:scrollViewFrame];
     [self.view addSubview:profileScrollView];
     
-    CGRect charLabelFrame = CGRectMake(255, 170, 57, 21);
     self.updateCharLabel = [[UILabel alloc] initWithFrame:charLabelFrame];
     self.updateCharLabel.textAlignment = UITextAlignmentRight;
     self.updateCharLabel.textColor = [UIColor darkGrayColor];
@@ -46,7 +57,7 @@
     self.updateCharLabel.font = [UIFont systemFontOfSize:13];
     [self.view addSubview:updateCharLabel];
     
-    CGRect updateTextFrame = CGRectMake(0, 57, 320, 105);
+    
     self.updateTextView = [[UITextView alloc] initWithFrame:updateTextFrame];
     self.updateTextView.delegate = self;
     [self.view addSubview:updateTextView];
@@ -66,6 +77,22 @@
     
     [self getBufferProfiles];
 }
+
+
+-(void)updateFrames{
+	CGSize size = self.view.frame.size;
+    
+    /*
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+    
+        self.profileScrollView.frame = CGRectMake(0, 6, size.width, 50);
+        self.updateCharLabel.frame = CGRectMake(size.width - 57 - 8, 170, 57, 21);
+        self.updateTextView.frame = CGRectMake(0, 57, size.width, size.height);
+        
+    }
+     */
+}
+
 
 -(void)getBufferProfiles {
         
@@ -91,16 +118,27 @@
             for (int i = 0; i < profiles.count; i++) {
                 CGRect frame;
                 
-                if(i == 0) {
-                    frame.origin.x = 7;
-                } else if(i % 6 == 0){
-                    frame.origin.x = (320 * (i / 6)) + 7;
-                    buttonCount = 0;
+                if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+                    if(i == 0) {
+                        frame.origin.x = 10;
+                    } else if(i % 12 == 0){
+                        frame.origin.x = (650 * (i / 12)) + 10;
+                        buttonCount = 0;
+                    } else {
+                        buttonCount++;
+                        frame.origin.x = ((650 * floor(i / 12)) + (52.7 * buttonCount) + 15);
+                    }
                 } else {
-                    buttonCount++;
-                    frame.origin.x = ((320 * floor(i / 6)) + (52.7 * buttonCount) + 7);
+                    if(i == 0) {
+                        frame.origin.x = 7;
+                    } else if(i % 6 == 0){
+                        frame.origin.x = (320 * (i / 6)) + 7;
+                        buttonCount = 0;
+                    } else {
+                        buttonCount++;
+                        frame.origin.x = ((320 * floor(i / 6)) + (52.7 * buttonCount) + 7);
+                    }
                 }
-                
                 frame.origin.y = 0;
                 frame.size = CGSizeMake(44, 49);
                 
@@ -129,19 +167,19 @@
                 networkIcon.userInteractionEnabled = NO;
                 
                 if([[[self.profiles objectAtIndex:i] valueForKey:@"service"] isEqualToString:@"twitter"]){
-                    [networkIcon setImage:[UIImage imageNamed:@"twitter-icon.png"]];
+                    [networkIcon setImage:[UIImage imageNamed:@"shkbuffer-twitter-icon.png"]];
                 }
                 
                 if([[[self.profiles objectAtIndex:i] valueForKey:@"service"] isEqualToString:@"facebook"]){
-                    [networkIcon setImage:[UIImage imageNamed:@"facebook-icon.png"]];
+                    [networkIcon setImage:[UIImage imageNamed:@"shkbuffer-facebook-icon.png"]];
                 }
                 
                 if([[[self.profiles objectAtIndex:i] valueForKey:@"service"] isEqualToString:@"gplus"]){
-                    [networkIcon setImage:[UIImage imageNamed:@"gplus-icon.png"]];
+                    [networkIcon setImage:[UIImage imageNamed:@"shkbuffer-gplus-icon.png"]];
                 }
                 
                 if([[[profiles objectAtIndex:i] valueForKey:@"service"] isEqualToString:@"linkedin"]){
-                    [networkIcon setImage:[UIImage imageNamed:@"linkedin-icon.png"]];
+                    [networkIcon setImage:[UIImage imageNamed:@"shkbuffer- linkedin-icon.png"]];
                 }
                 
                 [accountButton addSubview:networkIcon];
@@ -160,11 +198,18 @@
                 }
             }
             
-            
-            if(self.profiles.count <= 6){
-                profileScrollView.contentSize = CGSizeMake(320, 44);
+            if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+                if(self.profiles.count <= 12){
+                    profileScrollView.contentSize = CGSizeMake(650, 44);
+                } else {
+                    profileScrollView.contentSize = CGSizeMake(650 * ceil((float)self.profiles.count / 12), 44);
+                }
             } else {
-                profileScrollView.contentSize = CGSizeMake(320 * ceil((float)profiles.count / 6), 44);
+                if(self.profiles.count <= 6){
+                    profileScrollView.contentSize = CGSizeMake(320, 44);
+                } else {
+                    profileScrollView.contentSize = CGSizeMake(320 * ceil((float)profiles.count / 6), 44);
+                }
             }
             
             [self detectTwitterAccountActive];
@@ -209,10 +254,12 @@
 
 
 
--(void)detectLinksAndUpdateCharactersRemaining {
+-(int)detectLinksAndUpdateCharactersRemaining {
     NSDataDetector *linkDetector = [NSDataDetector dataDetectorWithTypes:NSTextCheckingTypeLink error:nil];
     NSArray *matches = [linkDetector matchesInString:updateTextView.text options:0 range:NSMakeRange(0, [updateTextView.text length])];
     
+	int remaining = 140 - [updateTextView.text length];
+	
     if([matches count] != 0){
         for (NSTextCheckingResult *match in matches) {
             if ([match resultType] == NSTextCheckingTypeLink) {
@@ -220,11 +267,14 @@
                 NSString *urlString = [NSString stringWithFormat:@"%@", url];
                 
                 // Add urlString Character Count to the character count & remove 20
-                self.updateCharLabel.text = [NSString stringWithFormat:@"%d", 140 - [updateTextView.text length] + [urlString length] - 20];
+				remaining = remaining + [urlString length] - 20;
+                self.updateCharLabel.text = [NSString stringWithFormat:@"%d", remaining];
                 
             }
         }
     }
+	
+	return remaining;
 }
 
 
@@ -274,7 +324,7 @@
                                               cancelButtonTitle: @"OK"
                                               otherButtonTitles: nil];
         [alert show];
-    } else if([self twitterAccountActive] && [updateTextView.text length] > 140){
+    } else if([self twitterAccountActive] && [self detectLinksAndUpdateCharactersRemaining] < 0){
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle: @"Update too long"
                                                         message: @"Please reduce the number of characters."
                                                        delegate: self
@@ -302,6 +352,11 @@
 	[self.delegate sendDidCancel];
 }
 
+-(void)viewWillAppear:(BOOL)animated{
+	[super viewWillAppear:animated];
+	[self updateFrames];
+	[self detectLinksAndUpdateCharactersRemaining];
+}
 
 - (void)viewDidUnload {
     [super viewDidUnload];

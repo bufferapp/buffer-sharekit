@@ -97,10 +97,10 @@
 		944CC88F151E744C00B51FA3 /* SBJsonBase.m in Sources */ = {isa = PBXBuildFile; fileRef = 944CC887151E744C00B51FA3 /* SBJsonBase.m */; };
 		944CC890151E744C00B51FA3 /* SBJsonParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 944CC889151E744C00B51FA3 /* SBJsonParser.m */; };
 		944CC891151E744C00B51FA3 /* SBJsonWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = 944CC88B151E744C00B51FA3 /* SBJsonWriter.m */; };
-		944CC9DD1523BF9800B51FA3 /* facebook-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 944CC9D91523BF9000B51FA3 /* facebook-icon.png */; };
-		944CC9DE1523BF9800B51FA3 /* twitter-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 944CC9DA1523BF9100B51FA3 /* twitter-icon.png */; };
-		944CC9DF1523BF9800B51FA3 /* gplus-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 944CC9DB1523BF9300B51FA3 /* gplus-icon.png */; };
-		944CC9E01523BF9800B51FA3 /* linkedin-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 944CC9DC1523BF9400B51FA3 /* linkedin-icon.png */; };
+		944CC9DD1523BF9800B51FA3 /* shkbuffer-facebook-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 944CC9D91523BF9000B51FA3 /* shkbuffer-facebook-icon.png */; };
+		944CC9DE1523BF9800B51FA3 /* shkbuffer-twitter-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 944CC9DA1523BF9100B51FA3 /* shkbuffer-twitter-icon.png */; };
+		944CC9DF1523BF9800B51FA3 /* shkbuffer-gplus-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 944CC9DB1523BF9300B51FA3 /* shkbuffer-gplus-icon.png */; };
+		944CC9E01523BF9800B51FA3 /* shkbuffer-linkedin-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 944CC9DC1523BF9400B51FA3 /* shkbuffer-linkedin-icon.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -278,10 +278,10 @@
 		944CC889151E744C00B51FA3 /* SBJsonParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonParser.m; sourceTree = "<group>"; };
 		944CC88A151E744C00B51FA3 /* SBJsonWriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonWriter.h; sourceTree = "<group>"; };
 		944CC88B151E744C00B51FA3 /* SBJsonWriter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonWriter.m; sourceTree = "<group>"; };
-		944CC9D91523BF9000B51FA3 /* facebook-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "facebook-icon.png"; sourceTree = "<group>"; };
-		944CC9DA1523BF9100B51FA3 /* twitter-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "twitter-icon.png"; sourceTree = "<group>"; };
-		944CC9DB1523BF9300B51FA3 /* gplus-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "gplus-icon.png"; sourceTree = "<group>"; };
-		944CC9DC1523BF9400B51FA3 /* linkedin-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "linkedin-icon.png"; sourceTree = "<group>"; };
+		944CC9D91523BF9000B51FA3 /* shkbuffer-facebook-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "shkbuffer-facebook-icon.png"; sourceTree = "<group>"; };
+		944CC9DA1523BF9100B51FA3 /* shkbuffer-twitter-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "shkbuffer-twitter-icon.png"; sourceTree = "<group>"; };
+		944CC9DB1523BF9300B51FA3 /* shkbuffer-gplus-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "shkbuffer-gplus-icon.png"; sourceTree = "<group>"; };
+		944CC9DC1523BF9400B51FA3 /* shkbuffer-linkedin-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "shkbuffer-linkedin-icon.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -805,10 +805,10 @@
 		94B626331525054800ECBFF1 /* Images */ = {
 			isa = PBXGroup;
 			children = (
-				944CC9D91523BF9000B51FA3 /* facebook-icon.png */,
-				944CC9DA1523BF9100B51FA3 /* twitter-icon.png */,
-				944CC9DB1523BF9300B51FA3 /* gplus-icon.png */,
-				944CC9DC1523BF9400B51FA3 /* linkedin-icon.png */,
+				944CC9D91523BF9000B51FA3 /* shkbuffer-facebook-icon.png */,
+				944CC9DA1523BF9100B51FA3 /* shkbuffer-twitter-icon.png */,
+				944CC9DB1523BF9300B51FA3 /* shkbuffer-gplus-icon.png */,
+				944CC9DC1523BF9400B51FA3 /* shkbuffer-linkedin-icon.png */,
 			);
 			name = Images;
 			sourceTree = "<group>";
@@ -872,10 +872,10 @@
 				43A5382911DBE480004A1712 /* sanFran.jpg in Resources */,
 				43C91D1D11EB963600F31FAE /* MainWindow-iPad.xib in Resources */,
 				43FF9C7412270E9F00ADE53C /* Localizable.strings in Resources */,
-				944CC9DD1523BF9800B51FA3 /* facebook-icon.png in Resources */,
-				944CC9DE1523BF9800B51FA3 /* twitter-icon.png in Resources */,
-				944CC9DF1523BF9800B51FA3 /* gplus-icon.png in Resources */,
-				944CC9E01523BF9800B51FA3 /* linkedin-icon.png in Resources */,
+				944CC9DD1523BF9800B51FA3 /* shkbuffer-facebook-icon.png in Resources */,
+				944CC9DE1523BF9800B51FA3 /* shkbuffer-twitter-icon.png in Resources */,
+				944CC9DF1523BF9800B51FA3 /* shkbuffer-gplus-icon.png in Resources */,
+				944CC9E01523BF9800B51FA3 /* shkbuffer-linkedin-icon.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

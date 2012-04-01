@@ -102,6 +102,11 @@
 	[self.delegate sendDidCancel];
 }
 
+-(void)viewDidDisappear:(BOOL)animated{
+	[super viewDidDisappear:animated];
+	[[SHK currentHelper] viewWasDismissed];
+}
+
 - (void)viewDidUnload {
     [super viewDidUnload];
 }

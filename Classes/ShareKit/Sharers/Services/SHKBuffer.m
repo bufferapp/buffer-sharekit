@@ -78,11 +78,12 @@ static NSString *accessTokenKey = @"SHKBufferAccessToken";
 
 - (void)storeAccessToken:(NSString *)token {
     NSLog(@"Store!");
+	self.accessToken = token;
 	[SHK setAuthValue:token
                forKey:@"SHKBufferAccessToken"
             forSharer:[self sharerId]];
     
-    [[SHK currentHelper] hideCurrentViewControllerAnimated:YES];
+	[self tryToSend];
 }
  
 - (BOOL)restoreAccessToken {
@@ -95,7 +96,10 @@ static NSString *accessTokenKey = @"SHKBufferAccessToken";
 	return self.accessToken != nil;
 }
 
-
++(void)logout{
+	[super logout];
+	[SHK setAuthValue:nil forKey:@"SHKBufferAccessToken" forSharer:self];
+}
 
 - (void)show {
     NSString *updateText = @"";
@@ -111,7 +115,14 @@ static NSString *accessTokenKey = @"SHKBufferAccessToken";
 	[[SHK currentHelper] showViewController:self];
 }
 
+-(void)send{
+	[self show];
+}
 
+-(void)sendDidFinish{
+	[super sendDidFinish];
+	[[SHK currentHelper] hideCurrentViewControllerAnimated:YES];
+}
 
 #pragma mark -
 #pragma mark Requests
