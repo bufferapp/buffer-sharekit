@@ -111,6 +111,7 @@ static NSString *accessTokenKey = @"SHKBufferAccessToken";
     SHKBufferSheetView *bufferSheet = [[SHKBufferSheetView alloc] initWithToken:self.accessToken];
     bufferSheet.delegate = self;
     bufferSheet.updateCopy = updateText;
+    
 	[self pushViewController:bufferSheet animated:NO];
 	[[SHK currentHelper] showViewController:self];
 }
@@ -155,5 +156,12 @@ static NSString *accessTokenKey = @"SHKBufferAccessToken";
         [self sendDidFailWithError:[SHK error:SHKLocalizedString(@"There was a problem adding to Buffer.")]];
     }
 }
+
+
+
+
+
+
+
 
 @end

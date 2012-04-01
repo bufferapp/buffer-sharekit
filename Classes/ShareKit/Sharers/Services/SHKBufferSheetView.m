@@ -76,6 +76,7 @@
     self.selected_profiles = [[NSMutableArray alloc] init];
     
     [self getBufferProfiles];
+    [self shortenLinks];
 }
 
 
@@ -346,6 +347,64 @@
     [self.delegate postBufferUpdate:updateTextView.text toProfiles:self.selected_profiles];
      
 }
+
+
+
+-(void)shortenLinks {
+    NSDataDetector *linkDetector = [NSDataDetector dataDetectorWithTypes:NSTextCheckingTypeLink error:nil];
+    NSArray *matches = [linkDetector matchesInString:updateTextView.text options:0 range:NSMakeRange(0, [updateTextView.text length])];
+    
+    if([matches count] != 0){
+        [[SHKActivityIndicator currentIndicator] displayActivity:SHKLocalizedString(@"Shortening Links")];
+        
+        
+        for (NSTextCheckingResult *match in matches) {
+            if ([match resultType] == NSTextCheckingTypeLink) {
+                
+                NSURL *url = [match URL];
+                NSString *urlString = [NSString stringWithFormat:@"%@", url];
+                urlString = [urlString stringByReplacingOccurrencesOfString:@"http://" withString:@""];
+                urlString = [urlString stringByReplacingOccurrencesOfString:@"Http://" withString:@""];
+                
+                NSString *requestUrl = [NSString stringWithFormat:@"http://api.bufferapp.com/1/updates/shorten.json?access_token=%@&url=%@", self.accessToken, urlString];
+                
+                self.request = [[[SHKRequest alloc] initWithURL:[NSURL URLWithString:requestUrl]
+                                                         params:nil
+                                                       delegate:self
+                                             isFinishedSelector:@selector(linkShortened:)
+                                                         method:@"GET"
+                                                      autostart:YES] autorelease];
+            }
+        }
+        
+    } else {
+        // No Links
+    }
+}
+
+
+
+-(void)linkShortened:(SHKRequest *)aRequest {
+    [[SHKActivityIndicator currentIndicator] hide];
+    
+    NSLog(@"Shortened");
+    
+    if (aRequest.success) {
+        NSLog(@"request %@", request.response);
+        
+        // Notify delegate
+        //[self sendDidFinish];
+    } else {
+        //[self sendDidFailWithError:[SHK error:SHKLocalizedString(@"There was a problem adding to Buffer.")]];
+    }
+}
+
+
+
+
+
+
+
 
 - (void)cancel {
 	[[SHK currentHelper] hideCurrentViewControllerAnimated:YES];
