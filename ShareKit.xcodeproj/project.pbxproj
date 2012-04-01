@@ -88,6 +88,8 @@
 		43D1DEF011D5CDD200550D75 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43D1DEEF11D5CDD200550D75 /* SystemConfiguration.framework */; };
 		43EF406E11D3FFF800B1F700 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43EF406D11D3FFF800B1F700 /* Security.framework */; };
 		43FF9C7412270E9F00ADE53C /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 43FF9C7212270E9F00ADE53C /* Localizable.strings */; };
+		942367151529043B00B294C6 /* shkbuffer-avatar-active.png in Resources */ = {isa = PBXBuildFile; fileRef = 942367131529043B00B294C6 /* shkbuffer-avatar-active.png */; };
+		942367161529043B00B294C6 /* shkbuffer-active@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 942367141529043B00B294C6 /* shkbuffer-active@2x.png */; };
 		944CC86B151E19E000B51FA3 /* SHKBuffer.m in Sources */ = {isa = PBXBuildFile; fileRef = 944CC86A151E19E000B51FA3 /* SHKBuffer.m */; };
 		944CC875151E1C5300B51FA3 /* SHKBufferOAuthView.m in Sources */ = {isa = PBXBuildFile; fileRef = 944CC874151E1C5300B51FA3 /* SHKBufferOAuthView.m */; };
 		944CC87C151E690E00B51FA3 /* SHKBufferSheetView.m in Sources */ = {isa = PBXBuildFile; fileRef = 944CC87B151E690D00B51FA3 /* SHKBufferSheetView.m */; };
@@ -259,6 +261,8 @@
 		43FF9C7312270E9F00ADE53C /* en */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = en; path = Classes/ShareKit/Localization/en.lproj/Localizable.strings; sourceTree = SOURCE_ROOT; };
 		43FF9C7512270EB900ADE53C /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = Classes/ShareKit/Localization/de.lproj/Localizable.strings; sourceTree = SOURCE_ROOT; };
 		8D1107310486CEB800E47090 /* ShareKit-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "ShareKit-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
+		942367131529043B00B294C6 /* shkbuffer-avatar-active.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "shkbuffer-avatar-active.png"; sourceTree = "<group>"; };
+		942367141529043B00B294C6 /* shkbuffer-active@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "shkbuffer-active@2x.png"; sourceTree = "<group>"; };
 		944CC869151E19E000B51FA3 /* SHKBuffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKBuffer.h; sourceTree = "<group>"; };
 		944CC86A151E19E000B51FA3 /* SHKBuffer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHKBuffer.m; sourceTree = "<group>"; };
 		944CC873151E1C5300B51FA3 /* SHKBufferOAuthView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKBufferOAuthView.h; sourceTree = "<group>"; };
@@ -805,6 +809,8 @@
 		94B626331525054800ECBFF1 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				942367131529043B00B294C6 /* shkbuffer-avatar-active.png */,
+				942367141529043B00B294C6 /* shkbuffer-active@2x.png */,
 				944CC9D91523BF9000B51FA3 /* shkbuffer-facebook-icon.png */,
 				944CC9DA1523BF9100B51FA3 /* shkbuffer-twitter-icon.png */,
 				944CC9DB1523BF9300B51FA3 /* shkbuffer-gplus-icon.png */,
@@ -876,6 +882,8 @@
 				944CC9DE1523BF9800B51FA3 /* shkbuffer-twitter-icon.png in Resources */,
 				944CC9DF1523BF9800B51FA3 /* shkbuffer-gplus-icon.png in Resources */,
 				944CC9E01523BF9800B51FA3 /* shkbuffer-linkedin-icon.png in Resources */,
+				942367151529043B00B294C6 /* shkbuffer-avatar-active.png in Resources */,
+				942367161529043B00B294C6 /* shkbuffer-active@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

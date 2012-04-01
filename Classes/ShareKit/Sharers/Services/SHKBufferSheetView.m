@@ -194,7 +194,7 @@
                     [self.selected_profiles addObject:[[self.profiles objectAtIndex:i] valueForKey:@"id"]];
                     
                     [accountButton setAlpha:1.0];
-                    UIImage *buttonImage = [UIImage imageNamed:@"avatar-active.png"];
+                    UIImage *buttonImage = [UIImage imageNamed:@"shkbuffer-avatar-active.png"];
                     [accountButton setBackgroundImage:buttonImage forState:UIControlStateNormal];
                 }
             }
@@ -238,7 +238,7 @@
     } else {
         [self.selected_profiles addObject:[[self.profiles objectAtIndex:accountTag] valueForKey:@"id"]];
         [sender setAlpha:1.0];
-        UIImage *buttonImage = [UIImage imageNamed:@"avatar-active.png"];
+        UIImage *buttonImage = [UIImage imageNamed:@"shkbuffer-avatar-active.png"];
         [sender setBackgroundImage:buttonImage forState:UIControlStateNormal];
     }
     
