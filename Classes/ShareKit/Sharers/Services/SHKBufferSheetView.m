@@ -366,7 +366,9 @@
                 urlString = [urlString stringByReplacingOccurrencesOfString:@"http://" withString:@""];
                 urlString = [urlString stringByReplacingOccurrencesOfString:@"Http://" withString:@""];
                 
-                NSString *requestUrl = [NSString stringWithFormat:@"http://api.bufferapp.com/1/updates/shorten.json?access_token=%@&url=%@", self.accessToken, urlString];
+                NSString *requestUrl = [NSString stringWithFormat:@"https://api.bufferapp.com/1/updates/shorten.json?access_token=%@&url=%@", self.accessToken, urlString];
+                
+                NSLog(@"request %@", requestUrl);
                 
                 self.request = [[[SHKRequest alloc] initWithURL:[NSURL URLWithString:requestUrl]
                                                          params:nil
@@ -385,15 +387,27 @@
 
 
 -(void)linkShortened:(SHKRequest *)aRequest {
-    [[SHKActivityIndicator currentIndicator] hide];
     
-    NSLog(@"Shortened");
+    NSLog(@"Shortened %@", [request getResult]);
+    NSArray *shortened_url = [[request getResult] JSONValue];
     
     if (aRequest.success) {
-        NSLog(@"request %@", request.response);
         
-        // Notify delegate
-        //[self sendDidFinish];
+        NSString *original = [NSString stringWithFormat:@"%@", [shortened_url valueForKey:@"long_url"]];
+        NSString *shortened = [NSString stringWithFormat:@"%@", [shortened_url valueForKey:@"url"]];
+        
+        if([original length] > [shortened length]){
+            NSString *updatedString = updateTextView.text;
+            
+            updatedString = [updatedString stringByReplacingOccurrencesOfString:original withString:shortened];
+            
+            updateTextView.text = updatedString;
+        }
+        
+        [self detectLinksAndUpdateCharactersRemaining];
+        
+        [[SHKActivityIndicator currentIndicator] hide];
+        
     } else {
         //[self sendDidFailWithError:[SHK error:SHKLocalizedString(@"There was a problem adding to Buffer.")]];
     }
