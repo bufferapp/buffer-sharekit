@@ -38,8 +38,6 @@
     NSURL *url = request.URL;
     NSString *urlString = url.absoluteString;
     
-    NSLog(@"urlString %@", urlString);
-    
     if([urlString rangeOfString:@"redirect_uri"].location != NSNotFound){
         // Successful Signup
         NSLog(@"Success!!!!");
@@ -88,13 +86,9 @@
 
 
 - (void)accessTokenRecieved:(SHKRequest *)aRequest {
-    NSLog(@"request %@", [request getResult]);
-    
-    
     NSDictionary *result = [[request getResult] JSONValue];
     
     [self.delegate storeAccessToken:[result valueForKey:@"access_token"]];
-    
 }
 
 - (void)cancel {

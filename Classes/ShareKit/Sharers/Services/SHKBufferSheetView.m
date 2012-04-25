@@ -56,19 +56,17 @@
     self.updateCharLabel.text = @"";
     self.updateCharLabel.font = [UIFont systemFontOfSize:13];
     [self.view addSubview:updateCharLabel];
-    
+    [updateCharLabel setHidden:YES];
     
     self.updateTextView = [[UITextView alloc] initWithFrame:updateTextFrame];
     self.updateTextView.delegate = self;
     [self.view addSubview:updateTextView];
+    [updateTextView setHidden:YES];
     
     [self.updateTextView setFont:[UIFont systemFontOfSize:13]];
     
     
     self.updateTextView.text = updateCopy;
-    
-    [self.updateTextView becomeFirstResponder];
-    
     
     [profileScrollView setPagingEnabled:YES];
     [profileScrollView setShowsHorizontalScrollIndicator:NO];
@@ -76,7 +74,6 @@
     self.selected_profiles = [[NSMutableArray alloc] init];
     
     [self getBufferProfiles];
-    [self shortenLinks];
 }
 
 
@@ -96,16 +93,20 @@
 
 
 -(void)getBufferProfiles {
-        
-        NSString *requestString = [NSString stringWithFormat:@"https://api.bufferapp.com/1/profiles.json?access_token=%@", self.accessToken];
-        
-        self.request = [[[SHKRequest alloc] initWithURL:[NSURL URLWithString:requestString]
-                                                 params:nil
-                                               delegate:self
-                                     isFinishedSelector:@selector(loadBufferProfiles:)
-                                                 method:@"GET"
-                                              autostart:YES] autorelease];
-
+    NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+    
+    [[SHKActivityIndicator currentIndicator] displayActivity:SHKLocalizedString(@"Loading Profiles")];
+    
+    NSString *requestString = [NSString stringWithFormat:@"https://api.bufferapp.com/1/profiles.json?access_token=%@", self.accessToken];
+    
+    self.request = [[[SHKRequest alloc] initWithURL:[NSURL URLWithString:requestString]
+                                             params:nil
+                                           delegate:self
+                                 isFinishedSelector:@selector(loadBufferProfiles:)
+                                             method:@"GET"
+                                          autostart:YES] autorelease];
+    
+    [pool release];
 }
 
 -(void)loadBufferProfiles:(SHKRequest *)aRequest {
@@ -151,7 +152,6 @@
                 [accountButton setBackgroundColor:[UIColor clearColor]];
                 [accountButton addTarget:self action:@selector(toggleAccount:) forControlEvents:UIControlEventTouchUpInside];
                 
-                
                 NSString *avatar = [[profiles objectAtIndex:i] valueForKey:@"avatar"];
                 UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 44, 44)];
                 [imageView setImage:[UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:avatar]]]];
@@ -187,7 +187,6 @@
                 
                 [profileScrollView addSubview:accountButton];
                 
-                
                 // Select Default Profiles
                 if([[[[self.profiles objectAtIndex:i] valueForKey:@"default"] stringValue] isEqualToString:@"1"]){
                     
@@ -212,7 +211,7 @@
                     profileScrollView.contentSize = CGSizeMake(320 * ceil((float)profiles.count / 6), 44);
                 }
             }
-            
+        
             [self detectTwitterAccountActive];
             
         } else {
@@ -223,6 +222,8 @@
         NSString *contentType = [aRequest.headers objectForKey:@"Content-Type"];
         NSLog(@"HTTPstatusCode %d, type %@", HTTPstatusCode, contentType);
     }
+    
+    [self shortenLinks];
 }
 
 
@@ -368,8 +369,6 @@
                 
                 NSString *requestUrl = [NSString stringWithFormat:@"https://api.bufferapp.com/1/updates/shorten.json?access_token=%@&url=%@", self.accessToken, urlString];
                 
-                NSLog(@"request %@", requestUrl);
-                
                 self.request = [[[SHKRequest alloc] initWithURL:[NSURL URLWithString:requestUrl]
                                                          params:nil
                                                        delegate:self
@@ -381,6 +380,9 @@
         
     } else {
         // No Links
+        [self.updateTextView becomeFirstResponder];
+        [updateTextView setHidden:NO];
+        [updateCharLabel setHidden:NO];
     }
 }
 
@@ -410,6 +412,10 @@
         // Error
         [[SHKActivityIndicator currentIndicator] hide];
     }
+    
+    [self.updateTextView becomeFirstResponder];
+    [updateTextView setHidden:NO];
+    [updateCharLabel setHidden:NO];
 }
 
 
