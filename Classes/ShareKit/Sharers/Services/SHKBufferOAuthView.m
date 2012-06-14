@@ -28,7 +28,7 @@
     
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(cancel)];
     
-    NSURL *url = [NSURL URLWithString:@"https://bufferapp.com/oauth2/authorize?client_id=4f6db4dc512f7ec56f00000a&response_type=code&redirect_uri=urn:ietf:wg:oauth:2.0:oob"];
+    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"https://bufferapp.com/oauth2/authorize?client_id=%@&response_type=code&redirect_uri=urn:ietf:wg:oauth:2.0:oob", SHKBufferClientID]];
 	
 	[bufferOAuthWebView loadRequest:[NSURLRequest requestWithURL:url]];
 }
@@ -73,7 +73,7 @@
 
 -(void)getAccessTokenWithCode:(NSString *)code {
     
-    NSString *requestPostString = [NSString stringWithFormat:@"grant_type=authorization_code&code=%@&client_id=4f6db4dc512f7ec56f00000a&client_secret=88eff43e8e2d11336975e28172db8929&redirect_uri=urn:ietf:wg:oauth:2.0:oob", code];
+    NSString *requestPostString = [NSString stringWithFormat:@"grant_type=authorization_code&code=%@&client_id=%@&client_secret=%@&redirect_uri=urn:ietf:wg:oauth:2.0:oob", code, SHKBufferClientID, SHKBufferClientSecret];
     
     self.request = [[[SHKRequest alloc] initWithURL:[NSURL URLWithString:@"https://api.bufferapp.com/1/oauth2/token.json"]
                                              params:requestPostString

@@ -37,6 +37,9 @@
  */
 
 
+// Buffer - http://bufferapp.com/developers/apps
+#define SHKBufferClientID		@"" // Client ID
+#define SHKBufferClientSecret	@"" // Client Secret
 
 // Delicious - https://developer.apps.yahoo.com/projects
 #define SHKDeliciousConsumerKey		@""
