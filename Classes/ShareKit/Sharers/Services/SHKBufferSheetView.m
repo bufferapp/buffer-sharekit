@@ -73,14 +73,14 @@
     
     self.selected_profiles = [[NSMutableArray alloc] init];
     
-    [self getBufferProfiles];
+    [NSThread detachNewThreadSelector:@selector(getBufferProfiles) toTarget:self withObject:nil];
 }
 
 
 -(void)updateFrames{
-	CGSize size = self.view.frame.size;
-    
-    /*
+	/*
+    CGSize size = self.view.frame.size;
+
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
     
         self.profileScrollView.frame = CGRectMake(0, 6, size.width, 50);
@@ -97,133 +97,140 @@
     
     [[SHKActivityIndicator currentIndicator] displayActivity:SHKLocalizedString(@"Loading Profiles")];
     
-    NSString *requestString = [NSString stringWithFormat:@"https://api.bufferapp.com/1/profiles.json?access_token=%@", self.accessToken];
-    
-    self.request = [[[SHKRequest alloc] initWithURL:[NSURL URLWithString:requestString]
-                                             params:nil
-                                           delegate:self
-                                 isFinishedSelector:@selector(loadBufferProfiles:)
-                                             method:@"GET"
-                                          autostart:YES] autorelease];
-    
+    // Check to see if cached profiles exist
+    if([self getOfflineProfileList]){
+        self.profiles = [self getOfflineProfileList];
+        [self populateProfileDisplay];
+    } else {
+        NSString *requestString = [NSString stringWithFormat:@"https://api.bufferapp.com/1/profiles.json?access_token=%@", self.accessToken];
+        self.request = [[[SHKRequest alloc] initWithURL:[NSURL URLWithString:requestString]
+                                                 params:nil
+                                               delegate:self
+                                     isFinishedSelector:@selector(loadBufferProfiles:)
+                                                 method:@"GET"
+                                              autostart:YES] autorelease];
+    }
+     
     [pool release];
 }
 
 -(void)loadBufferProfiles:(SHKRequest *)aRequest {
     if (aRequest.success) {
-        // Do something with the result
         self.profiles = [[aRequest getResult] JSONValue];
-        
-        int buttonCount = 0;
-        
-        if([self.profiles count] != 0){
-            for (int i = 0; i < profiles.count; i++) {
-                CGRect frame;
-                
-                if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
-                    if(i == 0) {
-                        frame.origin.x = 10;
-                    } else if(i % 12 == 0){
-                        frame.origin.x = (650 * (i / 12)) + 10;
-                        buttonCount = 0;
-                    } else {
-                        buttonCount++;
-                        frame.origin.x = ((650 * floor(i / 12)) + (52.7 * buttonCount) + 15);
-                    }
-                } else {
-                    if(i == 0) {
-                        frame.origin.x = 7;
-                    } else if(i % 6 == 0){
-                        frame.origin.x = (320 * (i / 6)) + 7;
-                        buttonCount = 0;
-                    } else {
-                        buttonCount++;
-                        frame.origin.x = ((320 * floor(i / 6)) + (52.7 * buttonCount) + 7);
-                    }
-                }
-                frame.origin.y = 0;
-                frame.size = CGSizeMake(44, 49);
-                
-                // Create Button
-                UIButton *accountButton = [UIButton buttonWithType:UIButtonTypeCustom];
-                accountButton.frame = frame;
-                accountButton.tag = (i + 1);
-                [accountButton setAlpha:0.5];
-                [accountButton setBackgroundColor:[UIColor clearColor]];
-                [accountButton addTarget:self action:@selector(toggleAccount:) forControlEvents:UIControlEventTouchUpInside];
-                
-                NSString *avatar = [[profiles objectAtIndex:i] valueForKey:@"avatar"];
-                UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 44, 44)];
-                [imageView setImage:[UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:avatar]]]];
-                imageView.tag = (i + 1);
-                imageView.userInteractionEnabled = NO;
-                
-                accountButton.accessibilityLabel = [NSString stringWithFormat:@"%@ %@", [[self.profiles objectAtIndex:i] valueForKey:@"service_username"], [[profiles objectAtIndex:i] valueForKey:@"service"]];
-                
-                [accountButton addSubview:imageView];
-                
-                
-                UIImageView *networkIcon = [[UIImageView alloc] initWithFrame:CGRectMake(31, 31, 13, 13)];
-                
-                networkIcon.userInteractionEnabled = NO;
-                
-                if([[[self.profiles objectAtIndex:i] valueForKey:@"service"] isEqualToString:@"twitter"]){
-                    [networkIcon setImage:[UIImage imageNamed:@"shkbuffer-twitter-icon.png"]];
-                }
-                
-                if([[[self.profiles objectAtIndex:i] valueForKey:@"service"] isEqualToString:@"facebook"]){
-                    [networkIcon setImage:[UIImage imageNamed:@"shkbuffer-facebook-icon.png"]];
-                }
-                
-                if([[[self.profiles objectAtIndex:i] valueForKey:@"service"] isEqualToString:@"gplus"]){
-                    [networkIcon setImage:[UIImage imageNamed:@"shkbuffer-gplus-icon.png"]];
-                }
-                
-                if([[[profiles objectAtIndex:i] valueForKey:@"service"] isEqualToString:@"linkedin"]){
-                    [networkIcon setImage:[UIImage imageNamed:@"shkbuffer- linkedin-icon.png"]];
-                }
-                
-                [accountButton addSubview:networkIcon];
-                
-                [profileScrollView addSubview:accountButton];
-                
-                // Select Default Profiles
-                if([[[[self.profiles objectAtIndex:i] valueForKey:@"default"] stringValue] isEqualToString:@"1"]){
-                    
-                    [self.selected_profiles addObject:[[self.profiles objectAtIndex:i] valueForKey:@"id"]];
-                    
-                    [accountButton setAlpha:1.0];
-                    UIImage *buttonImage = [UIImage imageNamed:@"shkbuffer-avatar-active.png"];
-                    [accountButton setBackgroundImage:buttonImage forState:UIControlStateNormal];
-                }
-            }
-            
-            if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
-                if(self.profiles.count <= 12){
-                    profileScrollView.contentSize = CGSizeMake(650, 44);
-                } else {
-                    profileScrollView.contentSize = CGSizeMake(650 * ceil((float)self.profiles.count / 12), 44);
-                }
-            } else {
-                if(self.profiles.count <= 6){
-                    profileScrollView.contentSize = CGSizeMake(320, 44);
-                } else {
-                    profileScrollView.contentSize = CGSizeMake(320 * ceil((float)profiles.count / 6), 44);
-                }
-            }
-        
-            [self detectTwitterAccountActive];
-            
-        } else {
-            
-        }
+        [self saveOfflineProfilesList: self.profiles];
+        [self populateProfileDisplay];
     } else {
         int HTTPstatusCode = aRequest.response.statusCode; // 404? 401? 500?
         NSString *contentType = [aRequest.headers objectForKey:@"Content-Type"];
         NSLog(@"HTTPstatusCode %d, type %@", HTTPstatusCode, contentType);
     }
+}
+
+
+
+-(void)populateProfileDisplay {
+    int buttonCount = 0;
     
-    [self shortenLinks];
+    if([self.profiles count] != 0){
+        for (int i = 0; i < profiles.count; i++) {
+            CGRect frame;
+            
+            if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+                if(i == 0) {
+                    frame.origin.x = 10;
+                } else if(i % 12 == 0){
+                    frame.origin.x = (650 * (i / 12)) + 10;
+                    buttonCount = 0;
+                } else {
+                    buttonCount++;
+                    frame.origin.x = ((650 * floor(i / 12)) + (52.7 * buttonCount) + 15);
+                }
+            } else {
+                if(i == 0) {
+                    frame.origin.x = 7;
+                } else if(i % 6 == 0){
+                    frame.origin.x = (320 * (i / 6)) + 7;
+                    buttonCount = 0;
+                } else {
+                    buttonCount++;
+                    frame.origin.x = ((320 * floor(i / 6)) + (52.7 * buttonCount) + 7);
+                }
+            }
+            frame.origin.y = 0;
+            frame.size = CGSizeMake(44, 49);
+            
+            // Create Button
+            UIButton *accountButton = [UIButton buttonWithType:UIButtonTypeCustom];
+            accountButton.frame = frame;
+            accountButton.tag = (i + 1);
+            [accountButton setAlpha:0.5];
+            [accountButton setBackgroundColor:[UIColor clearColor]];
+            [accountButton addTarget:self action:@selector(toggleAccount:) forControlEvents:UIControlEventTouchUpInside];
+            
+            NSString *avatar = [[profiles objectAtIndex:i] valueForKey:@"avatar"];
+            UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 44, 44)];
+            [imageView setImage:[UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:avatar]]]];
+            imageView.tag = (i + 1);
+            imageView.userInteractionEnabled = NO;
+            
+            accountButton.accessibilityLabel = [NSString stringWithFormat:@"%@ %@", [[self.profiles objectAtIndex:i] valueForKey:@"service_username"], [[profiles objectAtIndex:i] valueForKey:@"service"]];
+            
+            [accountButton addSubview:imageView];
+            
+            
+            UIImageView *networkIcon = [[UIImageView alloc] initWithFrame:CGRectMake(31, 31, 13, 13)];
+            
+            networkIcon.userInteractionEnabled = NO;
+            
+            if([[[self.profiles objectAtIndex:i] valueForKey:@"service"] isEqualToString:@"twitter"]){
+                [networkIcon setImage:[UIImage imageNamed:@"shkbuffer-twitter-icon.png"]];
+            }
+            
+            if([[[self.profiles objectAtIndex:i] valueForKey:@"service"] isEqualToString:@"facebook"]){
+                [networkIcon setImage:[UIImage imageNamed:@"shkbuffer-facebook-icon.png"]];
+            }
+            
+            if([[[self.profiles objectAtIndex:i] valueForKey:@"service"] isEqualToString:@"gplus"]){
+                [networkIcon setImage:[UIImage imageNamed:@"shkbuffer-gplus-icon.png"]];
+            }
+            
+            if([[[profiles objectAtIndex:i] valueForKey:@"service"] isEqualToString:@"linkedin"]){
+                [networkIcon setImage:[UIImage imageNamed:@"shkbuffer- linkedin-icon.png"]];
+            }
+            
+            [accountButton addSubview:networkIcon];
+            
+            [profileScrollView addSubview:accountButton];
+            
+            // Select Default Profiles
+            if([[[[self.profiles objectAtIndex:i] valueForKey:@"default"] stringValue] isEqualToString:@"1"]){
+                
+                [self.selected_profiles addObject:[[self.profiles objectAtIndex:i] valueForKey:@"id"]];
+                
+                [accountButton setAlpha:1.0];
+                UIImage *buttonImage = [UIImage imageNamed:@"shkbuffer-avatar-active.png"];
+                [accountButton setBackgroundImage:buttonImage forState:UIControlStateNormal];
+            }
+        }
+        
+        if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+            if(self.profiles.count <= 12){
+                profileScrollView.contentSize = CGSizeMake(650, 44);
+            } else {
+                profileScrollView.contentSize = CGSizeMake(650 * ceil((float)self.profiles.count / 12), 44);
+            }
+        } else {
+            if(self.profiles.count <= 6){
+                profileScrollView.contentSize = CGSizeMake(320, 44);
+            } else {
+                profileScrollView.contentSize = CGSizeMake(320 * ceil((float)profiles.count / 6), 44);
+            }
+        }
+        
+        [self detectTwitterAccountActive];
+    }
+    
+    [self performSelectorOnMainThread:@selector(shortenLinks) withObject:nil waitUntilDone:NO];
 }
 
 
@@ -246,15 +253,11 @@
     [self detectTwitterAccountActive];
 }
 
-
-
 - (void)textViewDidChange:(UITextView *)textView {
 	self.updateCharLabel.text = [NSString stringWithFormat:@"%d", 140 - [updateTextView.text length]];
     
     [self detectLinksAndUpdateCharactersRemaining];
 }
-
-
 
 -(int)detectLinksAndUpdateCharactersRemaining {
     NSDataDetector *linkDetector = [NSDataDetector dataDetectorWithTypes:NSTextCheckingTypeLink error:nil];
@@ -278,9 +281,6 @@
 	
 	return remaining;
 }
-
-
-
 
 -(void)detectTwitterAccountActive {
     if([self twitterAccountActive]){
@@ -306,10 +306,6 @@
     }
     return FALSE;
 }
-
-
-
-
 
 -(void)addBufferStatus {
     if([self.selected_profiles count] == 0){
@@ -338,7 +334,6 @@
     }
 }
 
-
 -(void)postBufferUpdate {
     
     [updateTextView resignFirstResponder];
@@ -348,8 +343,6 @@
     [self.delegate postBufferUpdate:updateTextView.text toProfiles:self.selected_profiles];
      
 }
-
-
 
 -(void)shortenLinks {
     NSDataDetector *linkDetector = [NSDataDetector dataDetectorWithTypes:NSTextCheckingTypeLink error:nil];
@@ -383,10 +376,9 @@
         [self.updateTextView becomeFirstResponder];
         [updateTextView setHidden:NO];
         [updateCharLabel setHidden:NO];
+        [[SHKActivityIndicator currentIndicator] hide];
     }
 }
-
-
 
 -(void)linkShortened:(SHKRequest *)aRequest {
     NSArray *shortened_url = [[request getResult] JSONValue];
@@ -418,13 +410,6 @@
     [updateCharLabel setHidden:NO];
 }
 
-
-
-
-
-
-
-
 - (void)cancel {
 	[[SHK currentHelper] hideCurrentViewControllerAnimated:YES];
 	[self.delegate sendDidCancel];
@@ -435,6 +420,53 @@
 	[self updateFrames];
 	[self detectLinksAndUpdateCharactersRemaining];
 }
+
+
+
+
+#pragma mark -
+#pragma mark Offline Support
+
+// Avatars
+
+- (NSString *)offlineBufferCachePath {
+	NSFileManager *fileManager = [NSFileManager defaultManager];
+	NSArray *paths = NSSearchPathForDirectoriesInDomains( NSCachesDirectory, NSUserDomainMask, YES);
+	NSString *cache = [paths objectAtIndex:0];
+	NSString *SHKBufferPath = [cache stringByAppendingPathComponent:@"SHKBuffer"];
+	
+	// Check if the path exists, otherwise create it
+	if (![fileManager fileExistsAtPath:SHKBufferPath]) {
+		[fileManager createDirectoryAtPath:SHKBufferPath withIntermediateDirectories:YES attributes:nil error:nil];
+    }
+	
+	return SHKBufferPath;
+}
+
+- (BOOL)addAvatartoBufferCacheforProfile:(NSString *)profileID fromURL:(NSString *)url {
+    UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:url]]];
+
+    [UIImageJPEGRepresentation(image, 1) writeToFile:[[self offlineBufferCachePath] stringByAppendingPathComponent:profileID] atomically:YES];
+	
+	return YES;
+}
+
+// Profiles
+
+- (NSString *)offlineBufferProfileListPath {
+	NSString *offlineProfilesPathString = [[self offlineBufferCachePath] stringByAppendingPathComponent:@"SHKBufferOfflineProfiles.plist"];
+    return offlineProfilesPathString;
+}
+
+- (NSMutableArray *)getOfflineProfileList {
+	return [[[NSArray arrayWithContentsOfFile:[self offlineBufferProfileListPath]] mutableCopy] autorelease];
+}
+
+
+- (void)saveOfflineProfilesList:(NSMutableArray *)profileList {
+	[profileList writeToFile:[self offlineBufferProfileListPath] atomically:YES]; // TODO - should do this off of the main thread	
+}
+
 
 - (void)viewDidUnload {
     [super viewDidUnload];

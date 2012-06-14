@@ -77,7 +77,6 @@ static NSString *accessTokenKey = @"SHKBufferAccessToken";
 }
 
 - (void)storeAccessToken:(NSString *)token {
-    NSLog(@"Store!");
 	self.accessToken = token;
 	[SHK setAuthValue:token
                forKey:@"SHKBufferAccessToken"
@@ -96,7 +95,7 @@ static NSString *accessTokenKey = @"SHKBufferAccessToken";
 	return self.accessToken != nil;
 }
 
-+(void)logout{
++(void)logout {
 	[super logout];
 	[SHK setAuthValue:nil forKey:@"SHKBufferAccessToken" forSharer:self];
 }
@@ -116,11 +115,11 @@ static NSString *accessTokenKey = @"SHKBufferAccessToken";
 	[[SHK currentHelper] showViewController:self];
 }
 
--(void)send{
+-(void)send {
 	[self show];
 }
 
--(void)sendDidFinish{
+-(void)sendDidFinish {
 	[super sendDidFinish];
 	[[SHK currentHelper] hideCurrentViewControllerAnimated:YES];
 }
@@ -150,7 +149,6 @@ static NSString *accessTokenKey = @"SHKBufferAccessToken";
     [[SHKActivityIndicator currentIndicator] hide];
     
     if (aRequest.success) {
-        // Notify delegate
         [self sendDidFinish];
     } else {
         [self sendDidFailWithError:[SHK error:SHKLocalizedString(@"There was a problem adding to Buffer.")]];

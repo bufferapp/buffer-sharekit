@@ -40,10 +40,8 @@
     
     if([urlString rangeOfString:@"redirect_uri"].location != NSNotFound){
         // Successful Signup
-        NSLog(@"Success!!!!");
     } else if([urlString rangeOfString:@"access_denied"].location != NSNotFound) {
         // Show a screen warning user they need to allow
-        NSLog(@"Should be hiding");
         [[SHK currentHelper] hideCurrentViewControllerAnimated:YES];
     } else if([urlString rangeOfString:@"signup"].location != NSNotFound) {
         // Reset Webview back to Auth Page
@@ -66,7 +64,7 @@
         NSString *code = [webViewTitle stringByReplacingOccurrencesOfString:@"Success code=" withString:@""];
         [self getAccessTokenWithCode:code];
     } else {
-        //[oauthWebView setHidden:NO];
+        [bufferOAuthWebView setHidden:NO];
     }
 }
 

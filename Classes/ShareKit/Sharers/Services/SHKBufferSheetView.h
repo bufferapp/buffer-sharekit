@@ -37,4 +37,12 @@
 
 -(id)initWithToken:(NSString *)token;
 
+- (NSString *)offlineBufferCachePath;
+
+- (BOOL)addAvatartoBufferCacheforProfile:(NSString *)profileID fromURL:(NSString *)url;
+
+- (NSMutableArray *)getOfflineProfileList;
+- (NSString *)offlineBufferProfileListPath;
+- (void)saveOfflineProfilesList:(NSMutableArray *)profileList;
+
 @end
