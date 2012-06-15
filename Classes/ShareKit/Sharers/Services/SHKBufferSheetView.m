@@ -447,7 +447,7 @@
     UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:url]]];
 
     [UIImageJPEGRepresentation(image, 1) writeToFile:[[self offlineBufferCachePath] stringByAppendingPathComponent:profileID] atomically:YES];
-	
+    
 	return YES;
 }
 
