@@ -46,7 +46,7 @@ static NSString *accessTokenKey = @"SHKBufferAccessToken";
 }
 
 + (BOOL)canShareOffline {
-	return NO;
+	return YES;
 }
 
 #pragma mark -
@@ -115,9 +115,10 @@ static NSString *accessTokenKey = @"SHKBufferAccessToken";
 	[[SHK currentHelper] showViewController:self];
 }
 
--(void)send {
-	[self show];
-}
+-(BOOL)send {
+	//[self show];
+    return NO;
+} 
 
 -(void)sendDidFinish {
 	[super sendDidFinish];
@@ -129,20 +130,25 @@ static NSString *accessTokenKey = @"SHKBufferAccessToken";
 
 
 -(void)postBufferUpdate:(NSString *)updateText toProfiles:(NSMutableArray *)profiles {
-    [[SHKActivityIndicator currentIndicator] displayActivity:SHKLocalizedString(@"Posting...")];
-    
-    NSString *postUrl = [NSString stringWithFormat:@"https://api.bufferapp.com/1/updates/create.json?access_token=%@", self.accessToken];
-    
-    NSString *postParams = [NSString stringWithFormat:@"text=%@&shorten=0&profile_ids[]=%@", updateText, [profiles componentsJoinedByString:@"&profile_ids[]="]];
-    
-    
-    self.request = [[[SHKRequest alloc] initWithURL:[NSURL URLWithString:postUrl]
-                                             params:postParams
-                                           delegate:self
-                                 isFinishedSelector:@selector(updatePosted:)
-                                             method:@"POST"
-                                          autostart:YES] autorelease];
-    
+    if (![[self class] shareRequiresInternetConnection] || [SHK connected]){
+        [[SHKActivityIndicator currentIndicator] displayActivity:SHKLocalizedString(@"Posting...")];
+        
+        NSString *postUrl = [NSString stringWithFormat:@"https://api.bufferapp.com/1/updates/create.json?access_token=%@", self.accessToken];
+        
+        NSString *postParams = [NSString stringWithFormat:@"text=%@&shorten=0&profile_ids[]=%@", updateText, [profiles componentsJoinedByString:@"&profile_ids[]="]];
+        
+        
+        self.request = [[[SHKRequest alloc] initWithURL:[NSURL URLWithString:postUrl]
+                                                 params:postParams
+                                               delegate:self
+                                     isFinishedSelector:@selector(updatePosted:)
+                                                 method:@"POST"
+                                              autostart:YES] autorelease];
+    } else if ([[self class] canShareOffline]) {
+        [SHK addToOfflineQueue:item forSharer:[self sharerId]];
+        NSLog(@"Adding to Offline Queue.");
+        NSLog(@"queue %@", [SHK getOfflineQueueList]);
+    }
 }
 
 -(void)updatePosted:(SHKRequest *)aRequest {
@@ -154,5 +160,43 @@ static NSString *accessTokenKey = @"SHKBufferAccessToken";
         [self sendDidFailWithError:[SHK error:SHKLocalizedString(@"There was a problem adding to Buffer.")]];
     }
 }
+
+
+#pragma mark -
+#pragma mark Offline Support
+
+- (NSString *)offlineBufferCachePath {
+	NSFileManager *fileManager = [NSFileManager defaultManager];
+	NSArray *paths = NSSearchPathForDirectoriesInDomains( NSCachesDirectory, NSUserDomainMask, YES);
+	NSString *cache = [paths objectAtIndex:0];
+	NSString *SHKBufferPath = [cache stringByAppendingPathComponent:@"SHKBuffer"];
+	
+	// Check if the path exists, otherwise create it
+	if (![fileManager fileExistsAtPath:SHKBufferPath]) {
+		[fileManager createDirectoryAtPath:SHKBufferPath withIntermediateDirectories:YES attributes:nil error:nil];
+    }
+	
+	return SHKBufferPath;
+}
+
+- (BOOL)addBufferItemtoCache:(NSString *)uid withProfiles:(NSMutableArray *)profiles {
+    
+    
+	return YES;
+}
+
+- (NSString *)offlineBufferQueueListPath {
+	NSString *offlineQueuePathString = [[self offlineBufferCachePath] stringByAppendingPathComponent:@"SHKBufferOfflineQueue.plist"];
+    return offlineQueuePathString;
+}
+
+- (NSMutableArray *)getOfflineQueueList {
+	return [[[NSArray arrayWithContentsOfFile:[self offlineBufferQueueListPath]] mutableCopy] autorelease];
+}
+
+- (void)saveOfflineQueueList:(NSMutableArray *)queueList {
+	[queueList writeToFile:[self offlineBufferQueueListPath] atomically:YES]; // TODO - should do this off of the main thread	
+}
+
 
 @end
