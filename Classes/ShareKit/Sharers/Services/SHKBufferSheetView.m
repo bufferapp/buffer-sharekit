@@ -169,7 +169,15 @@
             
             NSString *avatar = [[profiles objectAtIndex:i] valueForKey:@"avatar"];
             UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 44, 44)];
-            [imageView setImage:[UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:avatar]]]];
+            
+            NSString *imagePath = [NSString stringWithFormat:@"%@/%@", [self offlineBufferCachePath], [[profiles objectAtIndex:i] valueForKey:@"id"]];
+            
+            BOOL avatarExists = [[NSFileManager defaultManager] fileExistsAtPath:imagePath];
+            if(!avatarExists){
+                [self addAvatartoBufferCacheforProfile:[[profiles objectAtIndex:i] valueForKey:@"id"] fromURL:avatar];
+            }
+            
+            [imageView setImage:[UIImage imageWithContentsOfFile:imagePath]];
             imageView.tag = (i + 1);
             imageView.userInteractionEnabled = NO;
             
@@ -338,8 +346,6 @@
     
     [updateTextView resignFirstResponder];
     
-    [[SHKActivityIndicator currentIndicator] displayActivity:SHKLocalizedString(@"Posting...")];
-    
     [self.delegate postBufferUpdate:updateTextView.text toProfiles:self.selected_profiles];
      
 }
@@ -445,7 +451,7 @@
 
 - (BOOL)addAvatartoBufferCacheforProfile:(NSString *)profileID fromURL:(NSString *)url {
     UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:url]]];
-
+    
     [UIImageJPEGRepresentation(image, 1) writeToFile:[[self offlineBufferCachePath] stringByAppendingPathComponent:profileID] atomically:YES];
     
 	return YES;
