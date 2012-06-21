@@ -20,5 +20,7 @@
 + (void)deleteStoredAccessToken;
 
 -(void)postBufferUpdate:(NSString *)updateText toProfiles:(NSMutableArray *)profiles;
+-(void)addBufferItemtoCache:(NSString *)sid withUpdate:(NSString *)update withProfiles:(NSMutableArray *)profiles;
+-(NSMutableArray *)getBufferQueueItemForKey:(NSString *)key;
 
 @end

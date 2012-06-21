@@ -25,7 +25,6 @@ static NSString *accessTokenKey = @"SHKBufferAccessToken";
 	return self;
 }
 
-
 #pragma mark -
 #pragma mark Configuration : Service Defination
 
@@ -56,14 +55,12 @@ static NSString *accessTokenKey = @"SHKBufferAccessToken";
 	return YES;
 }
 
-
 #pragma mark -
 #pragma mark Authorize
 
 - (BOOL)isAuthorized {		
 	return [self restoreAccessToken];
 }
-
 
 - (void)promptAuthorization {
     SHKBufferOAuthView *auth = [[SHKBufferOAuthView alloc] init];
@@ -115,8 +112,34 @@ static NSString *accessTokenKey = @"SHKBufferAccessToken";
 	[[SHK currentHelper] showViewController:self];
 }
 
+- (BOOL)tryToSend {
+    NSLog(@"tryToSend item %@", item);
+    NSLog(@"item.title %@", item.title);
+    // Match with item stored in Buffer Queue and post out.
+    
+    NSLog(@"buffer queue %@", [self getBufferQueueItemForKey:item.title]);
+    
+    return YES;
+}
+
+
+-(NSMutableArray *)getBufferQueueItemForKey:(NSString *)needle_key {
+    NSMutableArray *queue_items = [self getOfflineBufferQueueList];
+    
+    for (NSMutableArray* queue_item in queue_items) {
+        
+        NSString *haystack_key = [queue_item valueForKey:@"sid"];
+        
+		if([haystack_key isEqualToString:needle_key]){ 
+			return queue_item;
+		}
+	}
+	return FALSE;
+    
+}
+
+
 -(BOOL)send {
-	//[self show];
     return NO;
 } 
 
@@ -145,9 +168,19 @@ static NSString *accessTokenKey = @"SHKBufferAccessToken";
                                                  method:@"POST"
                                               autostart:YES] autorelease];
     } else if ([[self class] canShareOffline]) {
-        [SHK addToOfflineQueue:item forSharer:[self sharerId]];
+        // Change the item title to a unique string used to match both items in ShareKit's queue and the Buffer Queue
+        NSString *sid = [NSString stringWithFormat:@"%i-%i", [[NSDate date] timeIntervalSince1970], arc4random()];
+        
+        item.title = sid;
+        
         NSLog(@"Adding to Offline Queue.");
-        NSLog(@"queue %@", [SHK getOfflineQueueList]);
+        
+        [self addBufferItemtoCache:sid withUpdate:updateText withProfiles:profiles];
+        [SHK addToOfflineQueue:item forSharer:[self sharerId]];
+        
+        NSLog(@"SHK queue %@", [SHK getOfflineQueueList]);
+        
+        [self sendDidFinish];
     }
 }
 
@@ -179,10 +212,23 @@ static NSString *accessTokenKey = @"SHKBufferAccessToken";
 	return SHKBufferPath;
 }
 
-- (BOOL)addBufferItemtoCache:(NSString *)uid withProfiles:(NSMutableArray *)profiles {
+- (void)addBufferItemtoCache:(NSString *)sid withUpdate:(NSString *)update withProfiles:(NSMutableArray *)profiles {
     
+    // Open queue list
+	NSMutableArray *queueList = [self getOfflineBufferQueueList];
+	if (queueList == nil)
+		queueList = [NSMutableArray arrayWithCapacity:0];
+	
+	// Add to queue list
+	[queueList addObject:[NSDictionary dictionaryWithObjectsAndKeys:
+                          sid,@"sid",
+                          update,@"update",
+                          profiles,@"profiles",
+                          nil]];
+	
+    NSLog(@"queueList %@", queueList);
     
-	return YES;
+	[self saveOfflineBufferQueueList:queueList];
 }
 
 - (NSString *)offlineBufferQueueListPath {
@@ -190,11 +236,11 @@ static NSString *accessTokenKey = @"SHKBufferAccessToken";
     return offlineQueuePathString;
 }
 
-- (NSMutableArray *)getOfflineQueueList {
+- (NSMutableArray *)getOfflineBufferQueueList {
 	return [[[NSArray arrayWithContentsOfFile:[self offlineBufferQueueListPath]] mutableCopy] autorelease];
 }
 
-- (void)saveOfflineQueueList:(NSMutableArray *)queueList {
+- (void)saveOfflineBufferQueueList:(NSMutableArray *)queueList {
 	[queueList writeToFile:[self offlineBufferQueueListPath] atomically:YES]; // TODO - should do this off of the main thread	
 }
 
