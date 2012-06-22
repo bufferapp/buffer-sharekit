@@ -113,11 +113,16 @@ static NSString *accessTokenKey = @"SHKBufferAccessToken";
 }
 
 - (BOOL)tryToSend {
-    NSLog(@"tryToSend item %@", item);
-    NSLog(@"item.title %@", item.title);
-    // Match with item stored in Buffer Queue and post out.
+    // Grab item from Buffer queue
+    NSMutableArray *buffer_item = [self getBufferQueueItemForKey:item.title];
     
-    NSLog(@"buffer queue %@", [self getBufferQueueItemForKey:item.title]);
+    // Post Update
+    [self postBufferUpdate:[buffer_item valueForKey:@"update"] toProfiles:[buffer_item valueForKey:@"profiles"]];
+    
+    // Remove item from Buffer Queue
+    NSMutableArray *buffer_queue = [self getOfflineBufferQueueList];
+    [buffer_queue removeObjectIdenticalTo:buffer_item];
+    [self saveOfflineBufferQueueList:buffer_queue];
     
     return YES;
 }
