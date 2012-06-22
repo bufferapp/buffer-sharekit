@@ -101,28 +101,42 @@
     if([self getOfflineProfileList]){
         self.profiles = [self getOfflineProfileList];
         [self populateProfileDisplay];
-    } else {
-        NSString *requestString = [NSString stringWithFormat:@"https://api.bufferapp.com/1/profiles.json?access_token=%@", self.accessToken];
-        self.request = [[[SHKRequest alloc] initWithURL:[NSURL URLWithString:requestString]
-                                                 params:nil
-                                               delegate:self
-                                     isFinishedSelector:@selector(loadBufferProfiles:)
-                                                 method:@"GET"
-                                              autostart:YES] autorelease];
     }
+    
+    // Load Profiles for first time or check for update
+    NSString *requestString = [NSString stringWithFormat:@"https://api.bufferapp.com/1/profiles.json?access_token=%@", self.accessToken];
+    
+    NSLog(@"request %@", requestString);
+    
+    self.request = [[[SHKRequest alloc] initWithURL:[NSURL URLWithString:requestString]
+                                             params:nil
+                                           delegate:self
+                                 isFinishedSelector:@selector(loadBufferProfiles:)
+                                             method:@"GET"
+                                          autostart:YES] autorelease];
+    
+    NSLog(@"request %@", self.request);
      
     [pool release];
 }
 
 -(void)loadBufferProfiles:(SHKRequest *)aRequest {
+    NSLog(@"loadBufferProfiles:(SHKRequest *)aRequest");
+    
     if (aRequest.success) {
-        self.profiles = [[aRequest getResult] JSONValue];
-        [self saveOfflineProfilesList: self.profiles];
-        [self populateProfileDisplay];
+        NSLog(@"loadBufferProfiles");
+        if(![[[aRequest getResult] JSONValue] isEqualToArray:self.profiles]){
+            self.profiles = [[aRequest getResult] JSONValue];
+            [self saveOfflineProfilesList: self.profiles];
+            [self populateProfileDisplay];
+            NSLog(@"Profiles Different so resaved (re)populated :)");
+        } else {
+            NSLog(@"else");
+        }
     } else {
         int HTTPstatusCode = aRequest.response.statusCode; // 404? 401? 500?
         NSString *contentType = [aRequest.headers objectForKey:@"Content-Type"];
-        NSLog(@"HTTPstatusCode %d, type %@", HTTPstatusCode, contentType);
+        NSLog(@"loadBufferProfiles failed %d, %@", HTTPstatusCode, contentType);
     }
 }
 

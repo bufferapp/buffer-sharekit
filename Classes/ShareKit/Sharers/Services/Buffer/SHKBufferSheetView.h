@@ -37,6 +37,8 @@
 
 -(id)initWithToken:(NSString *)token;
 
+-(void)loadBufferProfiles:(SHKRequest *)aRequest;
+
 - (NSString *)offlineBufferCachePath;
 
 - (BOOL)addAvatartoBufferCacheforProfile:(NSString *)profileID fromURL:(NSString *)url;

@@ -783,7 +783,7 @@
 				94B626331525054800ECBFF1 /* Images */,
 				944CC87E151E744000B51FA3 /* JSON */,
 			);
-			name = Buffer;
+			path = Buffer;
 			sourceTree = "<group>";
 		};
 		944CC87E151E744000B51FA3 /* JSON */ = {
@@ -816,7 +816,7 @@
 				944CC9DB1523BF9300B51FA3 /* shkbuffer-gplus-icon.png */,
 				944CC9DC1523BF9400B51FA3 /* shkbuffer-linkedin-icon.png */,
 			);
-			name = Images;
+			path = Images;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
