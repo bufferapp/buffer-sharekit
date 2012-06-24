@@ -73,7 +73,7 @@
     
     self.selected_profiles = [[NSMutableArray alloc] init];
     
-    [NSThread detachNewThreadSelector:@selector(getBufferProfiles) toTarget:self withObject:nil];
+    [self getBufferProfiles];
 }
 
 
@@ -93,7 +93,6 @@
 
 
 -(void)getBufferProfiles {
-    NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
     
     [[SHKActivityIndicator currentIndicator] displayActivity:SHKLocalizedString(@"Loading Profiles")];
     
@@ -106,37 +105,26 @@
     // Load Profiles for first time or check for update
     NSString *requestString = [NSString stringWithFormat:@"https://api.bufferapp.com/1/profiles.json?access_token=%@", self.accessToken];
     
-    NSLog(@"request %@", requestString);
-    
     self.request = [[[SHKRequest alloc] initWithURL:[NSURL URLWithString:requestString]
                                              params:nil
                                            delegate:self
                                  isFinishedSelector:@selector(loadBufferProfiles:)
                                              method:@"GET"
                                           autostart:YES] autorelease];
-    
-    NSLog(@"request %@", self.request);
      
-    [pool release];
 }
 
 -(void)loadBufferProfiles:(SHKRequest *)aRequest {
-    NSLog(@"loadBufferProfiles:(SHKRequest *)aRequest");
-    
     if (aRequest.success) {
-        NSLog(@"loadBufferProfiles");
         if(![[[aRequest getResult] JSONValue] isEqualToArray:self.profiles]){
             self.profiles = [[aRequest getResult] JSONValue];
             [self saveOfflineProfilesList: self.profiles];
             [self populateProfileDisplay];
-            NSLog(@"Profiles Different so resaved (re)populated :)");
-        } else {
-            NSLog(@"else");
         }
     } else {
         int HTTPstatusCode = aRequest.response.statusCode; // 404? 401? 500?
         NSString *contentType = [aRequest.headers objectForKey:@"Content-Type"];
-        NSLog(@"loadBufferProfiles failed %d, %@", HTTPstatusCode, contentType);
+        //NSLog(@"loadBufferProfiles failed %d, %@", HTTPstatusCode, contentType);
     }
 }
 
