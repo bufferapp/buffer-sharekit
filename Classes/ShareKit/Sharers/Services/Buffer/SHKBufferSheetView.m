@@ -133,6 +133,9 @@
 -(void)populateProfileDisplay {
     int buttonCount = 0;
     
+    // Clear the Scroll View
+    [profileScrollView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
+    
     if([self.profiles count] != 0){
         for (int i = 0; i < profiles.count; i++) {
             CGRect frame;
