@@ -9,6 +9,7 @@
 #import "SHKBuffer.h"
 #import "SHKBufferOAuthView.h"
 #import "SHKBufferSheetView.h"
+#import "NSString+Encode.h"
 
 @implementation SHKBuffer
 
@@ -163,7 +164,9 @@ static NSString *accessTokenKey = @"SHKBufferAccessToken";
         
         NSString *postUrl = [NSString stringWithFormat:@"https://api.bufferapp.com/1/updates/create.json?access_token=%@", self.accessToken];
         
-        NSString *postParams = [NSString stringWithFormat:@"text=%@&shorten=0&profile_ids[]=%@", updateText, [profiles componentsJoinedByString:@"&profile_ids[]="]];
+        NSString *formatted_update = [updateText encodeString:NSUTF8StringEncoding];
+        
+        NSString *postParams = [NSString stringWithFormat:@"text=%@&shorten=0&profile_ids[]=%@", formatted_update, [profiles componentsJoinedByString:@"&profile_ids[]="]];
         
         
         self.request = [[[SHKRequest alloc] initWithURL:[NSURL URLWithString:postUrl]
