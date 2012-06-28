@@ -208,7 +208,7 @@
             }
             
             if([[[profiles objectAtIndex:i] valueForKey:@"service"] isEqualToString:@"linkedin"]){
-                [networkIcon setImage:[UIImage imageNamed:@"shkbuffer- linkedin-icon.png"]];
+                [networkIcon setImage:[UIImage imageNamed:@"shkbuffer-linkedin-icon.png"]];
             }
             
             [accountButton addSubview:networkIcon];
