@@ -203,10 +203,6 @@
                 [networkIcon setImage:[UIImage imageNamed:@"shkbuffer-facebook-icon.png"]];
             }
             
-            if([[[self.profiles objectAtIndex:i] valueForKey:@"service"] isEqualToString:@"gplus"]){
-                [networkIcon setImage:[UIImage imageNamed:@"shkbuffer-gplus-icon.png"]];
-            }
-            
             if([[[profiles objectAtIndex:i] valueForKey:@"service"] isEqualToString:@"linkedin"]){
                 [networkIcon setImage:[UIImage imageNamed:@"shkbuffer-linkedin-icon.png"]];
             }
@@ -221,7 +217,7 @@
                 [self.selected_profiles addObject:[[self.profiles objectAtIndex:i] valueForKey:@"id"]];
                 
                 [accountButton setAlpha:1.0];
-                UIImage *buttonImage = [UIImage imageNamed:@"shkbuffer-avatar-active.png"];
+                UIImage *buttonImage = [UIImage imageNamed:@"shkbuffer-active.png"];
                 [accountButton setBackgroundImage:buttonImage forState:UIControlStateNormal];
             }
         }
