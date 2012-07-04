@@ -10,6 +10,7 @@
 #import "SHKBufferOAuthView.h"
 #import "SHKBufferSheetView.h"
 #import "NSString+Encode.h"
+#import "JSONKit.h"
 
 @implementation SHKBuffer
 
@@ -181,22 +182,25 @@ static NSString *accessTokenKey = @"SHKBufferAccessToken";
         
         item.title = sid;
         
-        NSLog(@"Adding to Offline Queue.");
-        
         [self addBufferItemtoCache:sid withUpdate:updateText withProfiles:profiles];
         [SHK addToOfflineQueue:item forSharer:[self sharerId]];
-        
-        NSLog(@"SHK queue %@", [SHK getOfflineQueueList]);
         
         [self sendDidFinish];
     }
 }
 
 -(void)updatePosted:(SHKRequest *)aRequest {
+    
     [[SHKActivityIndicator currentIndicator] hide];
     
     if (aRequest.success) {
-        [self sendDidFinish];
+        NSMutableDictionary *response = [aRequest.getResult objectFromJSONString];
+        
+        if([[[response valueForKey:@"success"] stringValue] isEqualToString:@"1"]){
+            [self sendDidFinish];
+        } else {
+            [self sendDidFailWithError:[SHK error:[response valueForKey:@"message"]]];
+        }
     } else {
         [self sendDidFailWithError:[SHK error:SHKLocalizedString(@"There was a problem adding to Buffer.")]];
     }
@@ -234,8 +238,6 @@ static NSString *accessTokenKey = @"SHKBufferAccessToken";
                           profiles,@"profiles",
                           nil]];
 	
-    NSLog(@"queueList %@", queueList);
-    
 	[self saveOfflineBufferQueueList:queueList];
 }
 

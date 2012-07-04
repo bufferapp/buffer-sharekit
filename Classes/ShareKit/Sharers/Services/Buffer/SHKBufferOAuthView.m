@@ -7,7 +7,7 @@
 //
 
 #import "SHKBufferOAuthView.h"
-#import "JSON.h"
+#import "JSONKit.h"
 
 @implementation SHKBufferOAuthView
 
@@ -21,7 +21,7 @@
     if(!bufferOAuthWebView){
         self.bufferOAuthWebView = [[[UIWebView alloc] initWithFrame:self.view.bounds] autorelease];
 		bufferOAuthWebView.delegate = self;
-		bufferOAuthWebView.scalesPageToFit = YES;
+		bufferOAuthWebView.scalesPageToFit = NO;
 		self.bufferOAuthWebView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
 		[self.view addSubview:bufferOAuthWebView];
     }
@@ -84,7 +84,7 @@
 
 
 - (void)accessTokenRecieved:(SHKRequest *)aRequest {
-    NSDictionary *result = [[request getResult] JSONValue];
+    NSDictionary *result = [[request getResult] objectFromJSONString];
     
     [self.delegate storeAccessToken:[result valueForKey:@"access_token"]];
 }

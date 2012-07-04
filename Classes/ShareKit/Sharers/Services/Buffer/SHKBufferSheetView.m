@@ -8,7 +8,7 @@
 
 #import "SHKBufferSheetView.h"
 #import "SHK.h"
-#import "JSON.h"
+#import "JSONKit.h"
 
 @implementation SHKBufferSheetView
 
@@ -116,8 +116,8 @@
 
 -(void)loadBufferProfiles:(SHKRequest *)aRequest {
     if (aRequest.success) {
-        if(![[[aRequest getResult] JSONValue] isEqualToArray:self.profiles]){
-            self.profiles = [[aRequest getResult] JSONValue];
+        if(![[[aRequest getResult] objectFromJSONString] isEqualToArray:self.profiles]){
+            self.profiles = [[aRequest getResult] objectFromJSONString];
             [self saveOfflineProfilesList: self.profiles];
             [self populateProfileDisplay];
         }
@@ -388,7 +388,7 @@
 }
 
 -(void)linkShortened:(SHKRequest *)aRequest {
-    NSArray *shortened_url = [[request getResult] JSONValue];
+    NSArray *shortened_url = [[request getResult] objectFromJSONString];
     
     if (aRequest.success) {
         
