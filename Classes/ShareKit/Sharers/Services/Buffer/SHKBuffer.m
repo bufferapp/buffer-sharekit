@@ -199,10 +199,15 @@ static NSString *accessTokenKey = @"SHKBufferAccessToken";
         if([[[response valueForKey:@"success"] stringValue] isEqualToString:@"1"]){
             [self sendDidFinish];
         } else {
-            [self sendDidFailWithError:[SHK error:[response valueForKey:@"message"]]];
+            [self sendDidFailWithError:[SHK error:SHKLocalizedString(@"There was a problem adding to Buffer.")]];
         }
     } else {
-        [self sendDidFailWithError:[SHK error:SHKLocalizedString(@"There was a problem adding to Buffer.")]];
+        NSMutableDictionary *response = [aRequest.getResult objectFromJSONString];
+        if([response valueForKey:@"message"]){
+            [self sendDidFailWithError:[SHK error:[response valueForKey:@"message"]]];
+        } else {
+            [self sendDidFailWithError:[SHK error:SHKLocalizedString(@"There was a problem adding to Buffer.")]];
+        }
     }
 }
 
