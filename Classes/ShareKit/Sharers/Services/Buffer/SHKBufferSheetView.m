@@ -75,20 +75,6 @@
     self.selected_profiles = [[NSMutableArray alloc] init];
     
     [self getBufferProfiles];
-    
-    if([self twitterAccountActive]){
-        [updateCharLabel setText:@"140"];
-        if(![updateTextView.text isEqualToString:@""]){
-            updateCharLabel.text = [NSString stringWithFormat:@"%d", [TwitterText remainingCharacterCount:updateTextView.text]];
-        }
-    } else if([self appdotnetAccountActive]){
-        [updateCharLabel setText:@"256"];
-        if(![updateTextView.text isEqualToString:@""]){
-            updateCharLabel.text = [NSString stringWithFormat:@"%d", [self appDotNetRemainingCharacterCount]];
-        }
-    } else {
-        [updateCharLabel setText:@""];
-    }
 }
 
 
