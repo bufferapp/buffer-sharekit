@@ -9,6 +9,7 @@
 #import "SHKBufferSheetView.h"
 #import "SHK.h"
 #import "JSONKit.h"
+#import "TwitterText.h"
 
 @implementation SHKBufferSheetView
 
@@ -74,6 +75,20 @@
     self.selected_profiles = [[NSMutableArray alloc] init];
     
     [self getBufferProfiles];
+    
+    if([self twitterAccountActive]){
+        [updateCharLabel setText:@"140"];
+        if(![updateTextView.text isEqualToString:@""]){
+            updateCharLabel.text = [NSString stringWithFormat:@"%d", [TwitterText remainingCharacterCount:updateTextView.text]];
+        }
+    } else if([self appdotnetAccountActive]){
+        [updateCharLabel setText:@"256"];
+        if(![updateTextView.text isEqualToString:@""]){
+            updateCharLabel.text = [NSString stringWithFormat:@"%d", [self appDotNetRemainingCharacterCount]];
+        }
+    } else {
+        [updateCharLabel setText:@""];
+    }
 }
 
 
@@ -240,7 +255,7 @@
             }
         }
         
-        [self detectTwitterAccountActive];
+        [self detectCharacterLimit];
     }
     
     [self performSelectorOnMainThread:@selector(shortenLinks) withObject:nil waitUntilDone:NO];
@@ -263,11 +278,15 @@
         [sender setBackgroundImage:buttonImage forState:UIControlStateNormal];
     }
     
-    [self detectTwitterAccountActive];
+    [self detectCharacterLimit];
 }
 
 - (void)textViewDidChange:(UITextView *)textView {
-	self.updateCharLabel.text = [NSString stringWithFormat:@"%d", 140 - [updateTextView.text length]];
+    if([self twitterAccountActive]){
+        updateCharLabel.text = [NSString stringWithFormat:@"%d", [TwitterText remainingCharacterCount:updateTextView.text]];
+    } else if([self appdotnetAccountActive]){
+        updateCharLabel.text = [NSString stringWithFormat:@"%d", [self appDotNetRemainingCharacterCount]];
+    }
     
     [self detectLinksAndUpdateCharactersRemaining];
 }
@@ -295,11 +314,15 @@
 	return remaining;
 }
 
--(void)detectTwitterAccountActive {
+-(void)detectCharacterLimit {
     if([self twitterAccountActive]){
-        [self.updateCharLabel setHidden:NO];
+        updateCharLabel.text = [NSString stringWithFormat:@"%d", [TwitterText remainingCharacterCount:updateTextView.text]];
+        [updateCharLabel setHidden:NO];
+    } else if([self appdotnetAccountActive]){
+        updateCharLabel.text = [NSString stringWithFormat:@"%d", [self appDotNetRemainingCharacterCount]];
+        [updateCharLabel setHidden:NO];
     } else {
-        [self.updateCharLabel setHidden:YES];
+        [updateCharLabel setHidden:YES];
     }
 }
 
@@ -308,16 +331,38 @@
         for (NSMutableArray* profile in self.profiles) {
             NSString *_id = [profile valueForKey:@"id"];
             
-            if([_id isEqualToString:profile_id]){ 
+            if([_id isEqualToString:profile_id]){
                 NSString *service = [profile valueForKey:@"service"];
                 
-                if([service isEqualToString:@"twitter"]){ 
+                if([service isEqualToString:@"twitter"]){
                     return TRUE;
                 }
             }
         }
     }
     return FALSE;
+}
+
+-(BOOL)appdotnetAccountActive {
+    for (NSString * profile_id in self.selected_profiles) {
+        for (NSMutableArray* profile in self.profiles) {
+            NSString *_id = [profile valueForKey:@"id"];
+            
+            if([_id isEqualToString:profile_id]){
+                NSString *service = [profile valueForKey:@"service"];
+                
+                if([service isEqualToString:@"appdotnet"]){
+                    return TRUE;
+                }
+            }
+        }
+    }
+    return FALSE;
+}
+
+-(int)appDotNetRemainingCharacterCount {
+    int count = 256 - updateTextView.text.length;
+    return count;
 }
 
 -(void)addBufferStatus {
