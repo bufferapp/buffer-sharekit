@@ -64,7 +64,7 @@
     [self.view addSubview:updateTextView];
     [updateTextView setHidden:YES];
     
-    [self.updateTextView setFont:[UIFont systemFontOfSize:13]];
+    [self.updateTextView setFont:[UIFont systemFontOfSize:14]];
     
     
     self.updateTextView.text = updateCopy;
@@ -222,7 +222,7 @@
                 [self.selected_profiles addObject:[[self.profiles objectAtIndex:i] valueForKey:@"id"]];
                 
                 [accountButton setAlpha:1.0];
-                UIImage *buttonImage = [UIImage imageNamed:@"shkbuffer-active.png"];
+                UIImage *buttonImage = [UIImage imageNamed:@"shkbuffer-avatar-active.png"];
                 [accountButton setBackgroundImage:buttonImage forState:UIControlStateNormal];
             }
         }
