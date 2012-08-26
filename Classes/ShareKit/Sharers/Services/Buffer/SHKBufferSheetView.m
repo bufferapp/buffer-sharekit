@@ -273,31 +273,6 @@
     } else if([self appdotnetAccountActive]){
         updateCharLabel.text = [NSString stringWithFormat:@"%d", [self appDotNetRemainingCharacterCount]];
     }
-    
-    [self detectLinksAndUpdateCharactersRemaining];
-}
-
--(int)detectLinksAndUpdateCharactersRemaining {
-    NSDataDetector *linkDetector = [NSDataDetector dataDetectorWithTypes:NSTextCheckingTypeLink error:nil];
-    NSArray *matches = [linkDetector matchesInString:updateTextView.text options:0 range:NSMakeRange(0, [updateTextView.text length])];
-    
-	int remaining = 140 - [updateTextView.text length];
-	
-    if([matches count] != 0){
-        for (NSTextCheckingResult *match in matches) {
-            if ([match resultType] == NSTextCheckingTypeLink) {
-                NSURL *url = [match URL];
-                NSString *urlString = [NSString stringWithFormat:@"%@", url];
-                
-                // Add urlString Character Count to the character count & remove 20
-				remaining = remaining + [urlString length] - 20;
-                self.updateCharLabel.text = [NSString stringWithFormat:@"%d", remaining];
-                
-            }
-        }
-    }
-	
-	return remaining;
 }
 
 -(void)detectCharacterLimit {
@@ -366,7 +341,14 @@
                                               cancelButtonTitle: @"OK"
                                               otherButtonTitles: nil];
         [alert show];
-    } else if([self twitterAccountActive] && [self detectLinksAndUpdateCharactersRemaining] < 0){
+    } else if([self twitterAccountActive] && [TwitterText remainingCharacterCount:updateTextView.text] < 0){
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle: @"Update too long"
+                                                        message: @"Please reduce the number of characters."
+                                                       delegate: self
+                                              cancelButtonTitle: @"OK"
+                                              otherButtonTitles: nil];
+        [alert show];
+    } else if([self appdotnetAccountActive] && [self appDotNetRemainingCharacterCount] < 0){
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle: @"Update too long"
                                                         message: @"Please reduce the number of characters."
                                                        delegate: self
@@ -438,8 +420,6 @@
             updateTextView.text = updatedString;
         }
         
-        [self detectLinksAndUpdateCharactersRemaining];
-        
         [[SHKActivityIndicator currentIndicator] hide];
         
     } else {
@@ -449,7 +429,7 @@
     
     [self.updateTextView becomeFirstResponder];
     [updateTextView setHidden:NO];
-    [updateCharLabel setHidden:NO];
+    [self detectCharacterLimit];
 }
 
 - (void)cancel {
@@ -460,7 +440,6 @@
 -(void)viewWillAppear:(BOOL)animated{
 	[super viewWillAppear:animated];
 	[self updateFrames];
-	[self detectLinksAndUpdateCharactersRemaining];
 }
 
 
