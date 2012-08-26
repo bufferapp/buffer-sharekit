@@ -207,6 +207,10 @@
                 [networkIcon setImage:[UIImage imageNamed:@"shkbuffer-linkedin-icon.png"]];
             }
             
+            if([[[profiles objectAtIndex:i] valueForKey:@"service"] isEqualToString:@"appdotnet"]){
+                [networkIcon setImage:[UIImage imageNamed:@"shkbuffer-appdotnet-icon.png"]];
+            }
+            
             [accountButton addSubview:networkIcon];
             
             [profileScrollView addSubview:accountButton];
