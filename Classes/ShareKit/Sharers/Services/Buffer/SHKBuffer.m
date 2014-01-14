@@ -167,7 +167,7 @@ static NSString *accessTokenKey = @"SHKBufferAccessToken";
         
         NSString *formatted_update = [updateText encodeString:NSUTF8StringEncoding];
         
-        NSString *postParams = [NSString stringWithFormat:@"text=%@&shorten=false&profile_ids[]=%@", formatted_update, [profiles componentsJoinedByString:@"&profile_ids[]="]];
+        NSString *postParams = [NSString stringWithFormat:@"text=%@&shorten=true&profile_ids[]=%@", formatted_update, [profiles componentsJoinedByString:@"&profile_ids[]="]];
         
         
         self.request = [[[SHKRequest alloc] initWithURL:[NSURL URLWithString:postUrl]
