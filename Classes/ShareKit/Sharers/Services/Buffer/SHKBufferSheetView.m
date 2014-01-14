@@ -243,8 +243,6 @@
         
         [self detectCharacterLimit];
     }
-    
-    [self performSelectorOnMainThread:@selector(shortenLinks) withObject:nil waitUntilDone:NO];
 }
 
 
